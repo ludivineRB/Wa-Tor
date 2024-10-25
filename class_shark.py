@@ -1,2 +1,2 @@
-def class Shark:
-    
+class Shark(Fish):
+    def __init__():
