@@ -26,11 +26,11 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(shark(width,height,shark[0],shark[1]))
+    list_of_sharks.append(shark(width,height,shark[0],shark[1],0))
     print(shark[0],shark[1])
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
-    list_of_fish.append(fish(width,height,fish[0],fish[1]))
+    list_of_fish.append(fish(width,height,fish[0],fish[1],0))
     print(fish[0],fish[1])
 
 #create function to print the simulation onto the console
@@ -63,8 +63,15 @@ while len(list_of_fish) != 0 and len(list_of_sharks) != 0:
     print_world()
 
     for fish in list_of_fish:
+        x_old = fish.x_coordinate
+        y_old = fish.y_coordinate
         fish.move()
+        if fish.ReproductionTime > 6 and fish.x_coordinate != x_old and fish.y_coordinate != y_old:
+            list_of_fish.append(fish(height, width, x_old,y_old))
+            fish.ReproductionTime = 0
 
     for shark in list_of_sharks:
+        x_old = shark.x_coorinate
+        y_old = shark.y_coordinate
         shark.move()
 
