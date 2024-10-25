@@ -30,11 +30,9 @@ for shark in list_of_random_coordinates[:number_of_sharks]:
     print(shark[0],shark[1])
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
-    # list_of_fish.append(fish(width,height,fish[0],fish[1]))
+    list_of_fish.append(fish(width,height,fish[0],fish[1]))
     print(fish[0],fish[1])
 
-
-shark.x_coordinate
 #create function to print the simulation onto the console
 def print_world() -> None:
     """
@@ -60,13 +58,13 @@ def print_world() -> None:
         print(row)
         
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
-# while len(list_of_fish) != 0 and len(list_of_sharks) != 0:
+while len(list_of_fish) != 0 and len(list_of_sharks) != 0:
 
-#     print_world()
+    print_world()
 
-#     for fish in list_of_fish:
-#         fish.move()
+    for fish in list_of_fish:
+        fish.move()
 
-#     for shark in list_of_sharks:
-#         shark.move()
+    for shark in list_of_sharks:
+        shark.move()
 
