@@ -26,13 +26,15 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    # list_of_sharks.append(shark(width,height,shark[0],shark[1]))
+    list_of_sharks.append(shark(width,height,shark[0],shark[1]))
     print(shark[0],shark[1])
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
     # list_of_fish.append(fish(width,height,fish[0],fish[1]))
     print(fish[0],fish[1])
 
+
+shark.x_coordinate
 #create function to print the simulation onto the console
 def print_world() -> None:
     """
@@ -67,3 +69,4 @@ def print_world() -> None:
 
 #     for shark in list_of_sharks:
 #         shark.move()
+
