@@ -6,7 +6,7 @@ class Shark(Fish):
         self.starvation_time = starvation_time
         
 
-    def move(self):
+    def move(self, list_of_fish, list_of_sharks):
         """_summary_ : Change of the x and y position for each object in Shark class. 
         """
         list_of_possible_positions = [(position((self.x_coordinate +1),(self.y_coordinate+1))),(position((self.x_coordinate+1),(self.y_coordinate-1))),(position((self.x_coordinate-1),(self.y_coordinate-1))),(position((self.x_coordinate-1),(self.y_coordinate+1)))]
