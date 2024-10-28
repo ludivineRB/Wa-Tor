@@ -18,22 +18,29 @@ class Fish(grid):
 
 
 
-    def move_fish(fish, grid, list_of_animals):
+    def move(self, list_of_animals):
         directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
         random.shuffle(directions)
 
-        for dir_x, dir_y in directions:
-            new_x, new_y = Fish.move(fish.x, fish.y, dir_x, dir_y)
+     """ for dir_x, dir_y in directions:
+            new_x, new_y = Fish.move(self.x, self.y, dir_x, dir_y)
             empty = True
             for animals in list_of_animals:
                 if animals.x == new_x and animals.y == new_y:
                     empty = False
-                    break
-            if empty:
-                x_old, y_old = fish.x_coordinate, fish.y_coordinate
-                fish.x_coordinate, fish.y_coordinate = new_x, new_y
+                    break"""
+        for dir_x in directions:
+            new_x = Fish.move(self.x,dir)              
 
-        fish.ReproductionTime += 1
+
+
+            if empty:
+                x_old = fish.x_coordinate,
+                y_old = fish.y_coordinate
+                fish.x_coordinate = new_x, 
+                fish.y_coordinate = new_y
+
+    fish.ReproductionTime += 1
 
 
 
