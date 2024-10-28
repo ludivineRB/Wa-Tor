@@ -1,4 +1,4 @@
-# import grid
+# import Grid
 # import fish
 # import shark
 import random
