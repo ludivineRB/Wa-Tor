@@ -14,6 +14,6 @@ class Grid:
             returns
             tuple of x and y coordinate
         """
-        x % self.width
-        y % self.height
+        x = x % self.width
+        y = y % self.height
         return (x,y)
