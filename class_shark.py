@@ -22,8 +22,8 @@ class Shark(Fish):
                 self.starvation_time = 3
                 list_of_fish.pop(pos)
                 #déplacement du requin
-                self.x_position=list_positions_fish[pos].x_coordinate
-                self.y_position=list_positions_fish[pos].y_coordinate
+                self.x_coordinate=list_positions_fish[pos].x_coordinate
+                self.y_coordinate=list_positions_fish[pos].y_coordinate
             else :
                 self.starvation_time-=1
                 #déplacement
