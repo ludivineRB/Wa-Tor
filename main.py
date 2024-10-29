@@ -2,6 +2,8 @@ import Grid
 from Fish import Fish
 from class_shark import Shark
 import random
+import os
+import time 
 
 height = 10
 width = 10
@@ -47,21 +49,22 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
         none
     """
 
-
+    os.system("clear")
+    print("\033[H", end="")
+    
     for y in range(height):
         row = ""
         for x in range(width):
             if (x,y) in list_positions_fish:
-                row += "1"
+                row += " ~ "
 
             elif (x,y) in list_positions_shark:
-                row += "2"
+                row += " O "
             
             else:
-                row += "0"
+                row += " . "
         print(row)
-    
-    print("="*20)
+    time.sleep(0.5) 
 
 count = 0
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
