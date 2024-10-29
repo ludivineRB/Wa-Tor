@@ -30,7 +30,7 @@ class Fish(Grid):
         test = s1-u1
         test2 = s1-u2
         list_of_possible_positions = list(test & test2)
-
+        
         # for element in list_of_possible_positions:
         #     if element in u1:
         #             l
@@ -43,10 +43,10 @@ class Fish(Grid):
         if len(list_of_possible_positions) == 0:
             self.x_coordinate = self.x_coordinate
             self.y_coordinate = self.y_coordinate
-
+            self.reproduction_time+=1
         else:
             random.shuffle(list_of_possible_positions)  
             self.x_coordinate = list_of_possible_positions[0][0]
             self.y_coordinate = list_of_possible_positions[0][1]
-
-        self.reproduction_time+=1
+            #self.x_coordinate, self.y_coordinate = super().position(self.x_coordinate +1, self.y_coordinate)
+            self.reproduction_time+=1
