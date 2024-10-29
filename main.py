@@ -4,13 +4,14 @@ from class_shark import Shark
 import random
 import os
 import time 
+from data import get_data
 
-height = 10
-width = 10
+height = 4
+width = 4
 
 #initialize number of animals
-number_of_sharks = 12
-number_of_fish = 40
+number_of_sharks = 15
+number_of_fish = 1
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
@@ -48,10 +49,11 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
         returns
         none
     """
+    get_data(chronon, number_of_fish,number_of_sharks)
 
     os.system("clear")
     print("\033[H", end="")
-    
+   
     for y in range(height):
         row = ""
         for x in range(width):
@@ -66,9 +68,10 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
         print(row)
     time.sleep(0.5) 
 
-count = 0
+chronon = 0
+
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
-while len(list_of_fish) != 0 and len(list_of_sharks) != 0:
+while len(list_of_fish) != 0 and len(list_of_sharks)!=0 and chronon<=3:
     print_world(list_positions_fish, list_positions_shark)
     l = []
     q = []
@@ -86,20 +89,31 @@ while len(list_of_fish) != 0 and len(list_of_sharks) != 0:
     for shark in list_of_sharks:
         x_old = shark.x_coordinate
         y_old = shark.y_coordinate
-        shark.move(list_of_fish, list_of_sharks)
+        shark.move(list_positions_fish, list_positions_shark)
         
         if shark.starvation_time == 0:
             list_of_sharks.remove(shark)
-
+        
         q.append((shark.x_coordinate, shark.y_coordinate))
-
+    
     list_positions_shark = q
+    print(list_positions_shark)
     list_of_positions_shared = list(set(list_positions_fish) & set(list_of_sharks))
 
     for fish in list_of_fish:
         if (fish.x_coordinate, fish.y_coordinate) in list_of_positions_shared:
             list_of_fish.remove(fish)
             list_positions_fish.remove((fish.x_coordinate, fish.y_coordinate))
+    
+    #print(list_positions_fish)
+   
+    #print(list_positions_shark)
 
 
+    #comptage chronon, fish and sharks
+    chronon += 1
+    #number_of_fish = len(list_of_fish)
+    #number_of_sharks = len(list_of_sharks)
 
+    print(chronon)
+    
