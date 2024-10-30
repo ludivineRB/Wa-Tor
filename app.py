@@ -83,6 +83,9 @@ def drawGrid(list_positions_fish, list_positions_shark):
     """
     nemo = pygame.image.load("nemo.png")
     shark = pygame.image.load("shark.png")
+    ocean = pygame.image.load('ocean.png')
+    ocean = pygame.transform.scale(ocean,res)
+    screen.blit(ocean, (0,0))
     block_size = 50
     grid_width = width
     grid_height = height
@@ -99,7 +102,8 @@ def drawGrid(list_positions_fish, list_positions_shark):
                 screen.blit(shark,(x*block_size,y*block_size))
             
             else:
-                pygame.draw.rect(screen, blue, rect)
+                #pygame.draw.rect(screen, blue, rect)
+                pass
                 
             pygame.draw.rect(screen, black, rect,1)
 
@@ -156,10 +160,13 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                 temp_list_of_shark.append(list_of_sharks[j])
                 list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
                 #add reproduction for sharks
-                if list_of_sharks[j].reproduction_time > 10 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
-                    temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
-                    temp_list_positions_shark.append((x_old, y_old))
-                    list_of_sharks[j].reproduction_time = 0
+                if list_of_sharks[j].reproduction_time > 3:
+                    if list_of_sharks[j].x_coordinate != x_old or list_of_sharks[j].y_coordinate != y_old:
+                        temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
+                        temp_list_positions_shark.append((x_old, y_old))
+                        list_of_sharks[j].reproduction_time = 0
+
+
                 #creation de liste =q
                 if list_of_sharks[j].starvation_time==9:
                     list_of_shared_positions.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
@@ -178,20 +185,19 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                 temp_list_positions_fish.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
                 list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
                 temp_list_of_fish.append(list_of_fish[i])
-                #reproduction time si possible 
+                #reproduction time si possible
                 if list_of_fish[i].reproduction_time > 3:
-                    if list_of_fish[i].x_coordinate != x_old:
-                        if list_of_fish[i].y_coordinate != y_old:
-                            temp_list_positions_fish.append((x_old, y_old))
-                            list_of_fish[i].reproduction_time = 0
-                            temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
+                    if list_of_fish[i].x_coordinate != x_old or list_of_fish[i].y_coordinate != y_old:
+                        temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
+                        temp_list_positions_fish.append((x_old, y_old))
+                        list_of_fish[i].reproduction_time = 0
+
         
         list_positions_shark = temp_list_positions_shark
-        list_of_sharks=temp_list_of_shark
+        list_of_sharks = temp_list_of_shark
         list_of_fish = temp_list_of_fish   
         list_positions_fish = temp_list_positions_fish
-
-        chronon += 1      
+        chronon += 1  
         pygame.display.update()
         fps.tick(1)
 
