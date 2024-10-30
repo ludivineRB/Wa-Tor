@@ -71,7 +71,7 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
 chronon = 0
 
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
-while len(list_of_fish) != -1 and len(list_of_sharks)!=0 and chronon <=10:
+while len(list_of_fish) != 0 and len(list_of_sharks)!=0:
     print_world(list_positions_fish, list_positions_shark)
     temp_list_positions_fish = []
     temp_list_positions_shark = []

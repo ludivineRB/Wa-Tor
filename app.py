@@ -37,10 +37,12 @@ ocean_waves = pygame.transform.scale(ocean_waves,res)
 screen.blit(ocean_waves, (0,0))
   
 # creating text for buttons
-smallfont = pygame.font.SysFont('Corbel',35) 
+smallfont = pygame.font.SysFont('Corbel',35)
+bigfont = pygame.font.SysFont('Corbel',200)
 text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
-title = smallfont.render('Wa-Tor', True, black)
+title = bigfont.render('Wa-Tor', True, white)
+screen.blit(title, (screen_width/2,1080/2))
 
 height = 20
 width = 20
@@ -130,18 +132,16 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
     while len(list_of_fish) != 0  and len(list_of_sharks)!=-0 and chronon <=15:
         drawGrid(list_positions_fish, list_positions_shark)
         nb_shark_text = create_shark_text(list_positions_shark)
-        shark_text = smallfont.render(nb_shark_text, True, black)
+        shark_text = smallfont.render(nb_shark_text, True, white)
         nb_fish_text = create_fish_text(list_positions_fish)
-        fish_text = smallfont.render(nb_fish_text, True, black)
+        fish_text = smallfont.render(nb_fish_text, True, white)
         chronon_text = create_chronon_text(chronon)
-        chronon_metre_text = smallfont.render(chronon_text, True, black)
+        chronon_metre_text = smallfont.render(chronon_text, True, white)
 
-        pygame.draw.rect(screen, grey,[screen_width-400,40,400,40])
-        screen.blit(shark_text, (screen_width-400,40))
-        pygame.draw.rect(screen, red,[screen_width-400,80,400,40])
-        screen.blit(fish_text, (screen_width-400,80))
-        pygame.draw.rect(screen, white,[screen_width-400,120,400,40])
-        screen.blit(chronon_metre_text, (screen_width-400,120))
+
+        screen.blit(shark_text, (screen_width-300,screen_height-200))
+        screen.blit(fish_text, (screen_width-300,screen_height-160))
+        screen.blit(chronon_metre_text, (screen_width-300,screen_height -120))
 
         temp_list_positions_fish = []
         temp_list_positions_shark = []
@@ -243,8 +243,8 @@ while True:
     screen.blit(text2 , (screen_width+50-200,screen_height/2+50))
 
     #create title
-    pygame.draw.rect(screen, blue,[screen_width-200,0,140,40])
-    screen.blit(title, (screen_width-200,0))
+    #pygame.draw.rect(screen, blue,[screen_width-200,0,140,40])
+    # screen.blit(title, (screen_width-200,0))
 
     
     if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 
