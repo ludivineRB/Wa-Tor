@@ -12,7 +12,7 @@ class Fish(Grid):
         self.y_coordinate = y_coordinate
 
 
-    def move(self, list_positions_fish, list_positions_shark):
+    def move(self, list_positions_fish, list_positions_shark, tmp_positions_babyshark, tmp_positions_babyfish):
         
         list_of_possible_positions = [
             super().position(self.x_coordinate, self.y_coordinate+1),
@@ -25,11 +25,17 @@ class Fish(Grid):
         s1 = set(list_of_possible_positions)
         s2 = set(list_positions_fish)
         s3 = set(list_positions_shark)
+        s4 = set(tmp_positions_babyshark)
+        s5 = set(tmp_positions_babyfish)
         u1 = s1 & s2
         u2 = s1 & s3
+        u3 = s1 & s4
+        u4 = s1 & s5
         test = s1-u1
         test2 = s1-u2
-        list_of_possible_positions = list(test & test2)
+        test3 = s1 - u3
+        test4 = s1 - u4
+        list_of_possible_positions = list(test & test2 & test3 & test4)
         
         # for element in list_of_possible_positions:
         #     if element in u1:
