@@ -4,7 +4,7 @@ from class_shark import Shark
 import random
 import os
 import time 
-from data import get_data
+import data
 
 height = 10
 width = 10
@@ -69,7 +69,7 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
     time.sleep(0.5) 
 
 chronon = 0
-
+data.create_csv(chronon, number_of_fish, number_of_sharks)
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
 while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
     print_world(list_positions_fish, list_positions_shark)
@@ -93,7 +93,7 @@ while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
             temp_list_of_shark.append(list_of_sharks[j])
             list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
             #add reproduction for sharks
-            if list_of_sharks[j].reproduction_time > 10 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
+            if list_of_sharks[j].reproduction_time > 8 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
                 temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
                 temp_list_positions_shark.append((x_old, y_old))
                 list_of_sharks[j].reproduction_time = 0
@@ -119,12 +119,16 @@ while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
             if list_of_fish[i].reproduction_time > 3:
                 if list_of_fish[i].x_coordinate != x_old:
                     if list_of_fish[i].y_coordinate != y_old:
+                        temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
                         temp_list_positions_fish.append((x_old, y_old))
                         list_of_fish[i].reproduction_time = 0
-                        temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
+                        
     
     list_positions_shark = temp_list_positions_shark
     list_of_sharks=temp_list_of_shark
     list_of_fish = temp_list_of_fish   
     list_positions_fish = temp_list_positions_fish
     chronon += 1
+    number_of_fish = len(list_of_fish)
+    number_of_sharks = len(list_of_sharks)
+    data.update_csv(chronon, number_of_fish, number_of_sharks)

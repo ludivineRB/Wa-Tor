@@ -30,15 +30,7 @@ class Fish(Grid):
         test = s1-u1
         test2 = s1-u2
         list_of_possible_positions = list(test & test2)
-        
-        # for element in list_of_possible_positions:
-        #     if element in u1:
-        #             l
-
-        #     if element in u2:
-        #             list_of_possible_positions.remove(element)
-        # print(list_of_possible_positions)
-        # print(list_of_possible_positions)   
+     
 
         if len(list_of_possible_positions) == 0:
             self.x_coordinate = self.x_coordinate
