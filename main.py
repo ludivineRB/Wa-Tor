@@ -6,12 +6,12 @@ import os
 import time 
 from data import get_data
 
-height = 20
-width = 20
+height = 10
+width = 10
 
 #initialize number of animals
-number_of_sharks = 5
-number_of_fish = 15
+number_of_sharks = 1
+number_of_fish = 25
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
@@ -73,16 +73,11 @@ chronon = 0
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
 while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
     print_world(list_positions_fish, list_positions_shark)
-    #l list positions fish
     temp_list_positions_fish = []
-    #q list positions shark
     temp_list_positions_shark = []
-    #lste temporaire de fish
     temp_list_of_fish = []
-    #templiste pour shark
     temp_list_of_shark = []
-    #nouvelle liste de positions de requins
-    list_of_shared_positions= []
+    list_of_shared_positions= [] 
     
     #boucles pour move les sharks
     for j in range(len(list_of_sharks)):
@@ -105,16 +100,7 @@ while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
             #creation de liste =q
             if list_of_sharks[j].starvation_time==9:
                 list_of_shared_positions.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
-            
-        
-    list_positions_shark = temp_list_positions_shark
-    list_of_sharks=temp_list_of_shark
 
-    #dans fish on doit demande en prems si la positions est partagée, on appelle pas eles fonctions, on mets direct pos=aa (kill)
-    #ensuite on enchaine avec les fonctions
-    
-    
-    
     #boucles pour move les fish mise à jour l
     for i in range(len(list_of_fish)):
         if (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate) in list_of_shared_positions:      
@@ -130,37 +116,15 @@ while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
             list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
             temp_list_of_fish.append(list_of_fish[i])
             #reproduction time si possible 
-            if list_of_fish[i].reproduction_time > 3 and [list_of_fish[i].x_coordinate != x_old and list_of_fish[i].y_coordinate != y_old]:
-                temp_list_positions_fish.append((x_old, y_old))
-                list_of_fish[i].reproduction_time = 0
-                temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
-            
+            if list_of_fish[i].reproduction_time > 3:
+                if list_of_fish[i].x_coordinate != x_old:
+                    if list_of_fish[i].y_coordinate != y_old:
+                        temp_list_positions_fish.append((x_old, y_old))
+                        list_of_fish[i].reproduction_time = 0
+                        temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
+    
+    list_positions_shark = temp_list_positions_shark
+    list_of_sharks=temp_list_of_shark
     list_of_fish = temp_list_of_fish   
     list_positions_fish = temp_list_positions_fish
-
-    
-    """
-    tmplistcoord = []
-    tmplistfish = []
-    #kill fish in the same position of shark
-    for fish in list_of_fish:
-        if (fish.x_coordinate,fish.y_coordinate) not in list_of_positions_shared:
-            tmplistcoord.append((fish.x_coordinate,fish.y_coordinate))
-            tmplistfish.append(fish)"""
-            
-            
-    
-    #print(list_positions_fish)
-   
-    #print(list_positions_shark)
-    """list_positions_fish = tmplistcoord
-    list_of_fish = tmplistfish"""
-    #print(f"liste de positions {list_positions_fish}")
-
-    #comptage chronon, fish and sharks
     chronon += 1
-    #number_of_fish = len(list_of_fish)
-    #number_of_sharks = len(list_of_sharks)
-
-    print(chronon)
-    
