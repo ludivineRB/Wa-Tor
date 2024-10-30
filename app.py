@@ -39,12 +39,12 @@ text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
 title = smallfont.render('Wa-Tor', True, black)
 
-height = 20
-width = 20
+height = 10
+width = 10
 
 #initialize number of animals
-number_of_sharks = 50
-number_of_fish = 350
+number_of_sharks = 1
+number_of_fish = 25
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
@@ -62,7 +62,7 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 3))
+    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 8))
 
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
@@ -113,7 +113,7 @@ def create_chronon_text(chronon):
 
 
 
-def main_pygame(list_positions_fish,list_positions_shark, list_of_fish):
+def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_sharks):
     chronon = 0
     while len(list_of_fish) != 0  and len(list_of_sharks)!=-0:
 
@@ -131,29 +131,12 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish):
         pygame.draw.rect(screen, white,[screen_width-400,120,400,40])
         screen.blit(chronon_metre_text, (screen_width-400,120))
 
-        drawGrid(list_positions_fish, list_positions_shark)
-
-        #l list positions fish
-        l = []
-        #q list positions shark
-        q = []
-        #boucles pour move les fish mise à jour l
-        for i in range(len(list_of_fish)):
-            x_old = list_of_fish[i].x_coordinate
-            y_old = list_of_fish[i].y_coordinate
-
-            list_of_fish[i].move(list_positions_fish, list_positions_shark)
-            #ajout des nouvelles coordonnées de poissons à la liste l    
-            l.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
-            list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
-            #reproduction time si possible 
-            if list_of_fish[i].reproduction_time > 6 and [list_of_fish[i].x_coordinate != x_old and list_of_fish[i].y_coordinate != y_old]:
-                list_of_fish.append(Fish(height, width, x_old,y_old, 0))
-                l.append((x_old, y_old))
-                list_of_fish[i].reproduction_time = 0
-            
-        list_positions_fish = l
-
+        temp_list_positions_fish = []
+        temp_list_positions_shark = []
+        temp_list_of_fish = []
+        temp_list_of_shark = []
+        list_of_shared_positions= [] 
+        
         #boucles pour move les sharks
         for j in range(len(list_of_sharks)):
             x_old = list_of_sharks[j].x_coordinate
@@ -162,37 +145,51 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish):
             
             #vérifier le starving des requins
             if list_of_sharks[j].starvation_time == 0:
-                list_of_sharks[j].x_coordinate = "a"
-                list_of_sharks[j].y_coordinate = "a"
-
-            if list_of_sharks[j].x_coordinate != "a":
-                q.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
+                pass
+            else:
+                temp_list_positions_shark.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
+                temp_list_of_shark.append(list_of_sharks[j])
                 list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
-            
-            #add reproduction for sharks
-            if list_of_sharks[j].reproduction_time > 6 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
-                list_of_sharks.append(Shark(height, width, x_old,y_old, 0,3))
-                q.append((x_old, y_old))
-                list_of_sharks[j].reproduction_time = 0
-            
-        list_positions_shark = q
-        #Creation liste de position partagée
-        list_of_positions_shared = list(set(list_positions_fish) & set(list_positions_shark))
+                #add reproduction for sharks
+                if list_of_sharks[j].reproduction_time > 10 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
+                    temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
+                    temp_list_positions_shark.append((x_old, y_old))
+                    list_of_sharks[j].reproduction_time = 0
+                #creation de liste =q
+                if list_of_sharks[j].starvation_time==9:
+                    list_of_shared_positions.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
 
-        tmplistcoord = []
-        tmplistfish = []
-        #kill fish in the same position of shark
-        for fish in list_of_fish:
-            if (fish.x_coordinate,fish.y_coordinate) not in list_of_positions_shared:
-                tmplistcoord.append((fish.x_coordinate,fish.y_coordinate))
-                tmplistfish.append(fish)
+        #boucles pour move les fish mise à jour l
+        for i in range(len(list_of_fish)):
+            if (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate) in list_of_shared_positions:      
+                pass
+
+            else:
+                x_old = list_of_fish[i].x_coordinate
+                y_old = list_of_fish[i].y_coordinate
+
+                list_of_fish[i].move(list_positions_fish, list_positions_shark)
+                #ajout des nouvelles coordonnées de poissons à la liste l    
+                temp_list_positions_fish.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
+                list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
+                temp_list_of_fish.append(list_of_fish[i])
+                #reproduction time si possible 
+                if list_of_fish[i].reproduction_time > 3:
+                    if list_of_fish[i].x_coordinate != x_old:
+                        if list_of_fish[i].y_coordinate != y_old:
+                            temp_list_positions_fish.append((x_old, y_old))
+                            list_of_fish[i].reproduction_time = 0
+                            temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
         
-        list_positions_fish = tmplistcoord
-        list_of_fish = tmplistfish
+        list_positions_shark = temp_list_positions_shark
+        list_of_sharks=temp_list_of_shark
+        list_of_fish = temp_list_of_fish   
+        list_positions_fish = temp_list_positions_fish
+        chronon += 1
                   
         pygame.display.update()
         fps.tick(1)
-        chronon += 1
+
 
 #infinite loop to run pygame
 while True:
@@ -208,7 +205,7 @@ while True:
             #if the mouse is clicked on the 
             # button the game is terminated 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
-                main_pygame(list_positions_fish,list_positions_shark,list_of_fish)
+                main_pygame(list_positions_fish,list_positions_shark,list_of_fish, list_of_sharks)
 
 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+140:
