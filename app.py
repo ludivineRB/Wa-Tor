@@ -32,22 +32,24 @@ red = (255,0,0)
 #initalize dimensions
 screen_width = screen.get_width() 
 screen_height = screen.get_height()
-ocean_waves = pygame.image.load("ocean-waves.jpggi") 
+ocean_waves = pygame.image.load("ocean-waves.jpg") 
 ocean_waves = pygame.transform.scale(ocean_waves,res)
 screen.blit(ocean_waves, (0,0))
   
 # creating text for buttons
-smallfont = pygame.font.SysFont('Corbel',35) 
+smallfont = pygame.font.SysFont('Corbel',35)
+bigfont = pygame.font.SysFont('Corbel',200)
 text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
-title = smallfont.render('Wa-Tor', True, black)
+title = bigfont.render('Wa-Tor', True, white)
+screen.blit(title, (screen_width/2,1080/2))
 
 height = 20
 width = 20
 
 #initialize number of animals
-number_of_sharks = 25
-number_of_fish = 300
+number_of_sharks = 20
+number_of_fish = 250
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
@@ -130,30 +132,30 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
     while len(list_of_fish) != 0  and len(list_of_sharks)!=-0 and chronon <=15:
         drawGrid(list_positions_fish, list_positions_shark)
         nb_shark_text = create_shark_text(list_positions_shark)
-        shark_text = smallfont.render(nb_shark_text, True, black)
+        shark_text = smallfont.render(nb_shark_text, True, white)
         nb_fish_text = create_fish_text(list_positions_fish)
-        fish_text = smallfont.render(nb_fish_text, True, black)
+        fish_text = smallfont.render(nb_fish_text, True, white)
         chronon_text = create_chronon_text(chronon)
-        chronon_metre_text = smallfont.render(chronon_text, True, black)
+        chronon_metre_text = smallfont.render(chronon_text, True, white)
 
-        pygame.draw.rect(screen, grey,[screen_width-400,40,400,40])
-        screen.blit(shark_text, (screen_width-400,40))
-        pygame.draw.rect(screen, red,[screen_width-400,80,400,40])
-        screen.blit(fish_text, (screen_width-400,80))
-        pygame.draw.rect(screen, white,[screen_width-400,120,400,40])
-        screen.blit(chronon_metre_text, (screen_width-400,120))
+
+        screen.blit(shark_text, (screen_width-300,screen_height-200))
+        screen.blit(fish_text, (screen_width-300,screen_height-160))
+        screen.blit(chronon_metre_text, (screen_width-300,screen_height -120))
 
         temp_list_positions_fish = []
         temp_list_positions_shark = []
         temp_list_of_fish = []
         temp_list_of_shark = []
+        temp_positions_babyshark = []
+        temp_positions_babyfish = []
         list_of_shared_positions= [] 
-        
+
         #boucles pour move les sharks
         for j in range(len(list_of_sharks)):
             x_old = list_of_sharks[j].x_coordinate
             y_old = list_of_sharks[j].y_coordinate
-            list_of_sharks[j].move(list_positions_fish, list_positions_shark)
+            list_of_sharks[j].move(list_positions_fish, list_positions_shark, temp_positions_babyshark)
             
             #vérifier le starving des requins
             if list_of_sharks[j].starvation_time == 0:
@@ -168,6 +170,7 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                         temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
                         temp_list_positions_shark.append((x_old, y_old))
                         list_of_sharks[j].reproduction_time = 0
+                        temp_positions_babyshark.append((x_old,y_old))
 
 
                 #creation de liste =q
@@ -183,7 +186,7 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                 x_old = list_of_fish[i].x_coordinate
                 y_old = list_of_fish[i].y_coordinate
 
-                list_of_fish[i].move(list_positions_fish, list_positions_shark)
+                list_of_fish[i].move(list_positions_fish, list_positions_shark, temp_positions_babyshark, temp_positions_babyfish)
                 #ajout des nouvelles coordonnées de poissons à la liste l    
                 temp_list_positions_fish.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
                 list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
@@ -194,13 +197,14 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                         temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
                         temp_list_positions_fish.append((x_old, y_old))
                         list_of_fish[i].reproduction_time = 0
+                        temp_positions_babyfish.append((x_old,y_old))
 
         
         list_positions_shark = temp_list_positions_shark
         list_of_sharks = temp_list_of_shark
         list_of_fish = temp_list_of_fish   
         list_positions_fish = temp_list_positions_fish
-        chronon += 1  
+        chronon += 1
         pygame.display.update()
         fps.tick(1)
 
@@ -239,8 +243,8 @@ while True:
     screen.blit(text2 , (screen_width+50-200,screen_height/2+50))
 
     #create title
-    pygame.draw.rect(screen, blue,[screen_width-200,0,140,40])
-    screen.blit(title, (screen_width-200,0))
+    #pygame.draw.rect(screen, blue,[screen_width-200,0,140,40])
+    # screen.blit(title, (screen_width-200,0))
 
     
     if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 

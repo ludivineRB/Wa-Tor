@@ -135,6 +135,3 @@ while len(list_of_fish) != -1 and len(list_of_sharks)!=0 and chronon <=10:
     list_of_fish = temp_list_of_fish   
     list_positions_fish = temp_list_positions_fish
     chronon += 1
-    number_of_fish = len(list_of_fish)
-    number_of_sharks = len(list_of_sharks)
-    data.update_csv(chronon, number_of_fish, number_of_sharks)
