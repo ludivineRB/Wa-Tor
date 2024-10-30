@@ -81,6 +81,8 @@ def drawGrid(list_positions_fish, list_positions_shark):
         returns
         none
     """
+    nemo = pygame.image.load("nemo.png")
+    shark = pygame.image.load("shark.png")
     block_size = 50
     grid_width = width
     grid_height = height
@@ -89,15 +91,18 @@ def drawGrid(list_positions_fish, list_positions_shark):
             rect = pygame.Rect(x*block_size, y*block_size, block_size, block_size)
             pygame.draw.rect(screen, black, rect,1)
             if (x,y) in list_positions_fish:
-                pygame.draw.rect(screen, red, rect)
+                nemo = pygame.transform.scale(nemo,(50,50))
+                screen.blit(nemo,(x*block_size,y*block_size))
 
             elif (x,y) in list_positions_shark:
-                pygame.draw.rect(screen, grey, rect)
+                shark = pygame.transform.scale(shark,(50,50))
+                screen.blit(shark,(x*block_size,y*block_size))
             
             else:
                 pygame.draw.rect(screen, blue, rect)
                 
             pygame.draw.rect(screen, black, rect,1)
+
 
 def create_shark_text(list_positions_shark):
     text = 'number of shark: ' + str(len(list_positions_shark))
@@ -115,8 +120,8 @@ def create_chronon_text(chronon):
 
 def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_sharks):
     chronon = 0
-    while len(list_of_fish) != 0  and len(list_of_sharks)!=-0:
-
+    while len(list_of_fish) != 0  and len(list_of_sharks)!=-0 and chronon <=15:
+        drawGrid(list_positions_fish, list_positions_shark)
         nb_shark_text = create_shark_text(list_positions_shark)
         shark_text = smallfont.render(nb_shark_text, True, black)
         nb_fish_text = create_fish_text(list_positions_fish)
@@ -185,8 +190,8 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
         list_of_sharks=temp_list_of_shark
         list_of_fish = temp_list_of_fish   
         list_positions_fish = temp_list_positions_fish
-        chronon += 1
-                  
+
+        chronon += 1      
         pygame.display.update()
         fps.tick(1)
 
@@ -206,6 +211,7 @@ while True:
             # button the game is terminated 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
                 main_pygame(list_positions_fish,list_positions_shark,list_of_fish, list_of_sharks)
+                #drawGrid(list_positions_fish,list_positions_shark)
 
 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+140:
