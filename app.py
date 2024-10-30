@@ -31,7 +31,10 @@ red = (255,0,0)
 
 #initalize dimensions
 screen_width = screen.get_width() 
-screen_height = screen.get_height() 
+screen_height = screen.get_height()
+ocean_waves = pygame.image.load("ocean-waves.jpggi") 
+ocean_waves = pygame.transform.scale(ocean_waves,res)
+screen.blit(ocean_waves, (0,0))
   
 # creating text for buttons
 smallfont = pygame.font.SysFont('Corbel',35) 
@@ -39,12 +42,12 @@ text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
 title = smallfont.render('Wa-Tor', True, black)
 
-height = 10
-width = 10
+height = 20
+width = 20
 
 #initialize number of animals
-number_of_sharks = 1
-number_of_fish = 25
+number_of_sharks = 25
+number_of_fish = 300
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
