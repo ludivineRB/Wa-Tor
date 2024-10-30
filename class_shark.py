@@ -1,6 +1,6 @@
 from Grid import Grid
 from Fish import Fish
-
+import random
 class Shark(Fish):
     def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time:int, starvation_time:int):
         super().__init__(width, height, x_coordinate, y_coordinate, reproduction_time)
@@ -22,11 +22,23 @@ class Shark(Fish):
         if len(l)>0: 
             self.x_coordinate = l[0][0]
             self.y_coordinate = l[0][1]
-            self.starvation_time = 3
+            self.starvation_time = 9
+        
 
         else:
-            self.starvation_time -= 1
-            super().move(list_positions_fish, list_positions_shark)
-        
+            self.starvation_time-=1
+            s1 = set(list_of_possible_positions)
+            s3 = set(list_positions_shark)
+            u2 = s1 & s3
+            test2 = s1-u2
+            list_of_possible_positions = list( test2)
+            if len(list_of_possible_positions) == 0:
+                self.x_coordinate = self.x_coordinate
+                self.y_coordinate = self.y_coordinate
+            else:
+                random.shuffle(list_of_possible_positions)  
+                self.x_coordinate = list_of_possible_positions[0][0]
+                self.y_coordinate = list_of_possible_positions[0][1]
+                #self.x_coordinate, self.y_coordinate = super().position(self.x_coordinate +1, self.y_coordinate)
         self.reproduction_time+=1
         

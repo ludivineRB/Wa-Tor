@@ -6,11 +6,11 @@ import os
 import time 
 from data import get_data
 
-height = 5
-width = 5
+height = 20
+width = 20
 
 #initialize number of animals
-number_of_sharks = 1
+number_of_sharks = 5
 number_of_fish = 15
 number_of_animals = number_of_sharks + number_of_fish
 
@@ -29,7 +29,7 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 3))
+    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 8))
 
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
@@ -49,7 +49,7 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
         returns
         none
     """
-    get_data(chronon, number_of_fish,number_of_sharks)
+    #get_data(chronon, number_of_fish,number_of_sharks)
 
     os.system("clear")
     print("\033[H", end="")
@@ -74,26 +74,16 @@ chronon = 0
 while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
     print_world(list_positions_fish, list_positions_shark)
     #l list positions fish
-    l = []
+    temp_list_positions_fish = []
     #q list positions shark
-    q = []
-    #boucles pour move les fish mise à jour l
-    for i in range(len(list_of_fish)):
-        x_old = list_of_fish[i].x_coordinate
-        y_old = list_of_fish[i].y_coordinate
-
-        list_of_fish[i].move(list_positions_fish, list_positions_shark)
-        #ajout des nouvelles coordonnées de poissons à la liste l    
-        l.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
-        list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
-        #reproduction time si possible 
-        if list_of_fish[i].reproduction_time > 6 and [list_of_fish[i].x_coordinate != x_old and list_of_fish[i].y_coordinate != y_old]:
-            list_of_fish.append(Fish(height, width, x_old,y_old, 0))
-            l.append((x_old, y_old))
-            list_of_fish[i].reproduction_time = 0
-        
-    list_positions_fish = l
-
+    temp_list_positions_shark = []
+    #lste temporaire de fish
+    temp_list_of_fish = []
+    #templiste pour shark
+    temp_list_of_shark = []
+    #nouvelle liste de positions de requins
+    list_of_shared_positions= []
+    
     #boucles pour move les sharks
     for j in range(len(list_of_sharks)):
         x_old = list_of_sharks[j].x_coordinate
@@ -102,39 +92,69 @@ while len(list_of_fish) != 0  and len(list_of_sharks)!=0:
         
         #vérifier le starving des requins
         if list_of_sharks[j].starvation_time == 0:
-            list_of_sharks[j].x_coordinate = "a"
-            list_of_sharks[j].y_coordinate = "a"
-
-        if list_of_sharks[j].x_coordinate != "a":
-            q.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
+            pass
+        else:
+            temp_list_positions_shark.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
+            temp_list_of_shark.append(list_of_sharks[j])
             list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
+            #add reproduction for sharks
+            if list_of_sharks[j].reproduction_time > 10 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
+                temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
+                temp_list_positions_shark.append((x_old, y_old))
+                list_of_sharks[j].reproduction_time = 0
+            #creation de liste =q
+            if list_of_sharks[j].starvation_time==9:
+                list_of_shared_positions.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
+            
         
-        #add reproduction for sharks
-        if list_of_sharks[j].reproduction_time > 6 and [list_of_sharks[j].x_coordinate != x_old and list_of_sharks[j].y_coordinate != y_old]:
-            list_of_sharks.append(Shark(height, width, x_old,y_old, 0,3))
-            q.append((x_old, y_old))
-            list_of_sharks[j].reproduction_time = 0
-        
-    list_positions_shark = q
-    print(f"liste de positions de requins {list_positions_shark}")
-    #Creation liste de position partagée
-    list_of_positions_shared = list(set(list_positions_fish) & set(list_positions_shark))
+    list_positions_shark = temp_list_positions_shark
+    list_of_sharks=temp_list_of_shark
 
+    #dans fish on doit demande en prems si la positions est partagée, on appelle pas eles fonctions, on mets direct pos=aa (kill)
+    #ensuite on enchaine avec les fonctions
+    
+    
+    
+    #boucles pour move les fish mise à jour l
+    for i in range(len(list_of_fish)):
+        if (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate) in list_of_shared_positions:      
+            pass
+
+        else:
+            x_old = list_of_fish[i].x_coordinate
+            y_old = list_of_fish[i].y_coordinate
+
+            list_of_fish[i].move(list_positions_fish, list_positions_shark)
+            #ajout des nouvelles coordonnées de poissons à la liste l    
+            temp_list_positions_fish.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
+            list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
+            temp_list_of_fish.append(list_of_fish[i])
+            #reproduction time si possible 
+            if list_of_fish[i].reproduction_time > 3 and [list_of_fish[i].x_coordinate != x_old and list_of_fish[i].y_coordinate != y_old]:
+                temp_list_positions_fish.append((x_old, y_old))
+                list_of_fish[i].reproduction_time = 0
+                temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
+            
+    list_of_fish = temp_list_of_fish   
+    list_positions_fish = temp_list_positions_fish
+
+    
+    """
     tmplistcoord = []
     tmplistfish = []
     #kill fish in the same position of shark
     for fish in list_of_fish:
         if (fish.x_coordinate,fish.y_coordinate) not in list_of_positions_shared:
             tmplistcoord.append((fish.x_coordinate,fish.y_coordinate))
-            tmplistfish.append(fish)
+            tmplistfish.append(fish)"""
             
             
     
     #print(list_positions_fish)
    
     #print(list_positions_shark)
-    list_positions_fish = tmplistcoord
-    list_of_fish = tmplistfish
+    """list_positions_fish = tmplistcoord
+    list_of_fish = tmplistfish"""
     #print(f"liste de positions {list_positions_fish}")
 
     #comptage chronon, fish and sharks
