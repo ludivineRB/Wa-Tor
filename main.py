@@ -10,7 +10,7 @@ height = 10
 width = 10
 
 #initialize number of animals
-number_of_sharks = 1
+number_of_sharks = 2
 number_of_fish = 25
 number_of_animals = number_of_sharks + number_of_fish
 
@@ -66,12 +66,12 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
             else:
                 row += " . "
         print(row)
-    time.sleep(0.5) 
+    time.sleep(0.1) 
 
 chronon = 0
 data.create_csv(chronon, number_of_fish, number_of_sharks, width,height)
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
-while len(list_of_fish) != -1 and len(list_of_sharks)!=0 and chronon <=10:
+while len(list_of_fish) != 0 or len(list_of_sharks)!=0:
     print_world(list_positions_fish, list_positions_shark)
     temp_list_positions_fish = []
     temp_list_positions_shark = []
@@ -95,7 +95,7 @@ while len(list_of_fish) != -1 and len(list_of_sharks)!=0 and chronon <=10:
             temp_list_of_shark.append(list_of_sharks[j])
             list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
             #add reproduction for sharks
-            if list_of_sharks[j].reproduction_time > 3:
+            if list_of_sharks[j].reproduction_time > 6:
                 if list_of_sharks[j].x_coordinate != x_old or list_of_sharks[j].y_coordinate != y_old:
                     temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
                     temp_list_positions_shark.append((x_old, y_old))
