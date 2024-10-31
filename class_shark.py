@@ -22,7 +22,7 @@ class Shark(Fish):
         if len(l)>0: 
             self.x_coordinate = l[0][0]
             self.y_coordinate = l[0][1]
-            self.starvation_time = 9
+            self.starvation_time = 3
         
 
         else:
