@@ -4,17 +4,17 @@
 import csv 
 import json
 
-def get_data(chronon, number_of_fish, number_of_sharks):
+def create_csv(chronon, number_of_fish, number_of_sharks, width, height):
     with open("data_WaTor.csv", mode='w', newline='') as file:
         writer = csv.writer(file)
-        """writer.writerow([f"Taille de la grille :  {height} x {width}"])
-        writer.writerow([f"Nombre initial de requin :  {number_of_sharks}"])
-        writer.writerow([f"Nombre initial de poisson :  {number_of_fish}"])
-        writer.writerow([f"Temps de reproduction :  {reproduction_time}"])
-        writer.writerow([f"Temps d' épuisement:  {starvation_time}"])"""
-    
+       # writer.writerow([f"Taille de la grille :  {height} x {width}"])
+        writer.writerow([])
         writer.writerow(["chronon", "nb_fish", "nb_shark"])
         writer.writerow([chronon, number_of_fish, number_of_sharks])
+        
 
-
+def update_csv(chronon, number_of_fish, number_of_sharks):
+    with open("data_WaTor.csv", mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([chronon, number_of_fish, number_of_sharks])
     
