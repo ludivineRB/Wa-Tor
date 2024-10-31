@@ -66,7 +66,7 @@ def print_world(list_positions_fish, list_positions_shark) -> None:
             else:
                 row += " . "
         print(row)
-    time.sleep(0.5) 
+    time.sleep(0.1) 
 
 chronon = 0
 
