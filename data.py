@@ -14,7 +14,7 @@ def create_csv(chronon, number_of_fish, number_of_sharks, width, height):
         
 
 def update_csv(chronon, number_of_fish, number_of_sharks):
-    with open("data_WaTor.csv", mode='a', newline='') as file:
+    with open("data_WaTor.csv", mode='of', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([chronon, number_of_fish, number_of_sharks])
     
