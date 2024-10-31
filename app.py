@@ -48,8 +48,8 @@ height = 20
 width = 20
 
 #initialize number of animals
-number_of_sharks = 20
-number_of_fish = 250
+number_of_sharks = 25
+number_of_fish = 200
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
@@ -67,7 +67,7 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 8))
+    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 2))
 
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
@@ -129,7 +129,7 @@ def create_chronon_text(chronon):
 
 def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_sharks):
     chronon = 0
-    while len(list_of_fish) != 0  and len(list_of_sharks)!=-0 and chronon <=15:
+    while len(list_of_fish) != 0  and len(list_of_sharks)!=-0:
         drawGrid(list_positions_fish, list_positions_shark)
         nb_shark_text = create_shark_text(list_positions_shark)
         shark_text = smallfont.render(nb_shark_text, True, white)
@@ -165,16 +165,16 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                 temp_list_of_shark.append(list_of_sharks[j])
                 list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
                 #add reproduction for sharks
-                if list_of_sharks[j].reproduction_time > 3:
+                if list_of_sharks[j].reproduction_time > 6:
                     if list_of_sharks[j].x_coordinate != x_old or list_of_sharks[j].y_coordinate != y_old:
-                        temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
+                        temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,2))
                         temp_list_positions_shark.append((x_old, y_old))
                         list_of_sharks[j].reproduction_time = 0
                         temp_positions_babyshark.append((x_old,y_old))
 
 
                 #creation de liste =q
-                if list_of_sharks[j].starvation_time==9:
+                if list_of_sharks[j].starvation_time==3:
                     list_of_shared_positions.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
 
         #boucles pour move les fish mise à jour l
@@ -192,7 +192,7 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
                 list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
                 temp_list_of_fish.append(list_of_fish[i])
                 #reproduction time si possible
-                if list_of_fish[i].reproduction_time > 3:
+                if list_of_fish[i].reproduction_time > 1:
                     if list_of_fish[i].x_coordinate != x_old or list_of_fish[i].y_coordinate != y_old:
                         temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
                         temp_list_positions_fish.append((x_old, y_old))
@@ -205,8 +205,40 @@ def main_pygame(list_positions_fish,list_positions_shark, list_of_fish, list_of_
         list_of_fish = temp_list_of_fish   
         list_positions_fish = temp_list_positions_fish
         chronon += 1
+
+        for ev in pygame.event.get(): 
+            
+            if ev.type == pygame.QUIT: 
+                pygame.quit() 
+                
+            #checks if a mouse is clicked 
+            if ev.type == pygame.MOUSEBUTTONDOWN: 
+                
+                #if the mouse is clicked on the 
+                # button the game is terminated 
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
+                    main_pygame(list_positions_fish,list_positions_shark,list_of_fish, list_of_sharks)
+
+
+
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+140:
+                    pygame.quit()
+        
+                # stores the (x,y) coordinates into 
+        # the variable as a tuple 
+        mouse = pygame.mouse.get_pos() 
+        
+
+        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
+        screen.blit(text2 , (screen_width+50-200,screen_height/2+50))
+
+        if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 
+            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2,140,40])
+
+        #events as in button clicks
         pygame.display.update()
         fps.tick(1)
+
 
 
 #infinite loop to run pygame
