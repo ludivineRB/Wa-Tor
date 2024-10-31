@@ -6,12 +6,12 @@ import os
 import time 
 from data import get_data
 
-height = 10
-width = 10
+height = 20
+width = 20
 
 #initialize number of animals
-number_of_sharks = 1
-number_of_fish = 25
+number_of_sharks = 25
+number_of_fish = 200
 number_of_animals = number_of_sharks + number_of_fish
 
 #initialize objects
@@ -29,7 +29,7 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 10))
+    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 2))
 
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
@@ -95,16 +95,16 @@ while len(list_of_fish) != 0 and len(list_of_sharks)!=0:
             temp_list_of_shark.append(list_of_sharks[j])
             list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
             #add reproduction for sharks
-            if list_of_sharks[j].reproduction_time > 3:
+            if list_of_sharks[j].reproduction_time > 6:
                 if list_of_sharks[j].x_coordinate != x_old or list_of_sharks[j].y_coordinate != y_old:
-                    temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,8))
+                    temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,2))
                     temp_list_positions_shark.append((x_old, y_old))
                     list_of_sharks[j].reproduction_time = 0
                     temp_positions_babyshark.append((x_old,y_old))
 
 
             #creation de liste =q
-            if list_of_sharks[j].starvation_time==9:
+            if list_of_sharks[j].starvation_time==3:
                 list_of_shared_positions.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
 
     #boucles pour move les fish mise à jour l
@@ -122,7 +122,7 @@ while len(list_of_fish) != 0 and len(list_of_sharks)!=0:
             list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
             temp_list_of_fish.append(list_of_fish[i])
             #reproduction time si possible
-            if list_of_fish[i].reproduction_time > 3:
+            if list_of_fish[i].reproduction_time > 1:
                 if list_of_fish[i].x_coordinate != x_old or list_of_fish[i].y_coordinate != y_old:
                     temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
                     temp_list_positions_fish.append((x_old, y_old))
@@ -135,3 +135,4 @@ while len(list_of_fish) != 0 and len(list_of_sharks)!=0:
     list_of_fish = temp_list_of_fish   
     list_positions_fish = temp_list_positions_fish
     chronon += 1
+print(chronon)
