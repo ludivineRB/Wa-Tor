@@ -68,7 +68,7 @@ chronon = 0
 data.create_csv(chronon, number_of_fish, number_of_sharks, width,height)
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
 while len(list_of_fish) != 0 or len(list_of_sharks)!=0:
-    #print_world(list_positions_fish, list_positions_shark)
+    print_world(list_positions_fish, list_positions_shark)
     temp_list_positions_fish = []
     temp_list_positions_shark = []
     temp_list_of_fish = []
@@ -136,5 +136,4 @@ while len(list_of_fish) != 0 or len(list_of_sharks)!=0:
     number_of_sharks=len(list_positions_shark)
 
     data.update_csv(chronon, number_of_fish, number_of_sharks)
-    print(chronon)
-
+   
