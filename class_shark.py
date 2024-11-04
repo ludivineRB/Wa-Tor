@@ -52,13 +52,9 @@ class Shark(Fish):
             set_of_sharks_positions = set(list_positions_shark)
             set_of_babyshark_positions = set(tmp_positions_babyshark)
 
-            intersection_possible_and_fish_positions = set_of_possible_positions & set_of_fish_positions
-            intersection_possible_and_sharks_positions = set_of_possible_positions & set_of_sharks_positions
-            intersection_possible_and_babyshark_positions = set_of_possible_positions & set_of_babyshark_positions
-
-            possible_positions_without_fish = set_of_possible_positions-intersection_possible_and_fish_positions
-            possible_positions_without_sharks= set_of_possible_positions-intersection_possible_and_sharks_positions
-            possible_positions_without_babysharks = set_of_possible_positions - intersection_possible_and_babyshark_positions
+            possible_positions_without_fish = set_of_possible_positions- set_of_fish_positions
+            possible_positions_without_sharks= set_of_possible_positions-set_of_sharks_positions
+            possible_positions_without_babysharks = set_of_possible_positions - set_of_babyshark_positions
             list_of_possible_positions = list(possible_positions_without_fish & possible_positions_without_sharks & possible_positions_without_babysharks)
 
             if len(list_of_possible_positions) == 0:
