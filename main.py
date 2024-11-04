@@ -48,19 +48,20 @@ def print_world(list_positions_fish:list[tuple[int,int]], list_positions_shark:l
     """
     
     os.system("clear")
-    print("\033[H", end="")
+    print( end="")
    
     for y in range(height):
         row = ""
         for x in range(width):
             if (x,y) in list_positions_fish:
-                row += " ~ "
+                row += f"\033[33m" + "\033[1m" +" f " + "\033[0m" +"|"
 
             elif (x,y) in list_positions_shark:
-                row += " O "
+                row += f"\033[34m" + "\033[1m" + " S " + "\033[0m"+"|"
             
             else:
-                row += " . "
+                row += f"\033[32m" + "\033[1m" + " ~ " + "\033[0m"+"|"
+        print('----'* width)
         print(row)
     time.sleep(0.1) 
 

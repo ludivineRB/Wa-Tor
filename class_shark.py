@@ -65,7 +65,7 @@ class Shark(Fish):
                 self.x_coordinate = self.x_coordinate
                 self.y_coordinate = self.y_coordinate
             else:
-                random.shuffle(list_of_possible_positions)  
+                #random.shuffle(list_of_possible_positions)  
                 self.x_coordinate = list_of_possible_positions[0][0]
                 self.y_coordinate = list_of_possible_positions[0][1]
         self.reproduction_time+=1
