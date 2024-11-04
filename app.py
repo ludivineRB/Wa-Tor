@@ -28,6 +28,7 @@ black = (0,0,0)
 blue = (51,255,255)
 grey = (100,100,100)
 red = (255,0,0)
+blue_grid = (204,229,255)
 
 #initalize dimensions
 screen_width = screen.get_width() 
@@ -42,7 +43,7 @@ bigfont = pygame.font.SysFont('Corbel',200)
 text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
 title = bigfont.render('Wa-Tor', True, white)
-screen.blit(title, (screen_width/2,1080/2))
+screen.blit(title, (screen_width/2,screen_height/2))
 
 height = 40
 width = 40
@@ -83,8 +84,8 @@ def drawGrid(list_positions_fish:list[tuple[int,int]], list_positions_shark:list
         list_positions_shark (list[tuple[int,int]]): _description_ list of tuples with each position of shark object to draw their position in the world
     """
     #load images
-    nemo = pygame.image.load("nemo.png")
-    shark = pygame.image.load("shark.png")
+    nemo = pygame.image.load("nemo-removebg-preview.png")
+    shark = pygame.image.load("shark-removebg-preview.png")
     ocean = pygame.image.load('ocean.png')
     ocean = pygame.transform.scale(ocean,res)
     screen.blit(ocean, (0,0))
@@ -95,7 +96,7 @@ def drawGrid(list_positions_fish:list[tuple[int,int]], list_positions_shark:list
     for x in range(grid_width):
         for y in range(grid_height):
             rect = pygame.Rect(x*block_size, y*block_size, block_size, block_size)
-            pygame.draw.rect(screen, black, rect,1)
+            pygame.draw.rect(screen, blue_grid, rect,1)
             if (x,y) in list_positions_fish:
                 nemo = pygame.transform.scale(nemo,(25,25))
                 screen.blit(nemo,(x*block_size,y*block_size))
@@ -107,7 +108,7 @@ def drawGrid(list_positions_fish:list[tuple[int,int]], list_positions_shark:list
             else:
                 pass
                 
-            pygame.draw.rect(screen, black, rect,1)
+            pygame.draw.rect(screen, blue_grid, rect,1)
 
 
 def create_shark_text(list_positions_shark:list[tuple[int,int]])->str:
