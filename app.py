@@ -6,7 +6,7 @@ import os
 import time
 import pygame 
 import sys
-
+import data
   
 # initializing the constructor 
 pygame.init() 
@@ -44,6 +44,7 @@ text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
 title = bigfont.render('Wa-Tor', True, white)
 screen.blit(title, (screen_width/2-150,screen_height/2))
+LEFT = 1
 
 height = 40
 width = 40
@@ -87,6 +88,7 @@ def drawGrid(list_positions_fish:list[tuple[int,int]], list_positions_shark:list
     nemo = pygame.image.load("nemo-removebg-preview.png")
     shark = pygame.image.load("shark-removebg-preview.png")
     ocean = pygame.image.load('ocean.png')
+    graph = pygame.image.load('data.png')
     ocean = pygame.transform.scale(ocean,res)
     screen.blit(ocean, (0,0))
     #create grid dimensions
@@ -159,6 +161,7 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         list_of_sharks (list[object]): _description_ list of all sharks object
     """
     chronon = 0
+    data.create_csv(chronon, number_of_fish,number_of_sharks)
     while len(list_of_fish) != 0  and len(list_of_sharks)!=-0:
         drawGrid(list_positions_fish, list_positions_shark)
         nb_shark_text = create_shark_text(list_positions_shark)
@@ -234,14 +237,15 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         list_of_fish = temp_list_of_fish   
         list_positions_fish = temp_list_positions_fish
         chronon += 1
-
+        data.update_csv(chronon, len(list_of_fish),len(list_of_sharks))
+        data.create_plot()
         for ev in pygame.event.get(): 
             
             if ev.type == pygame.QUIT: 
                 pygame.quit() 
                 
             #checks if a mouse is clicked 
-            if ev.type == pygame.MOUSEBUTTONDOWN: 
+            if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT: 
                 if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
                     pygame.quit()
                 
@@ -267,7 +271,7 @@ while True:
             pygame.quit() 
               
         #checks if a mouse is clicked 
-        if ev.type == pygame.MOUSEBUTTONDOWN: 
+        if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT: 
               
             #if the mouse is clicked on the button the game is terminated 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
@@ -295,3 +299,7 @@ while True:
         screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
     # updates the frames of the game 
     pygame.display.update()
+
+
+    '''graph = pygame.transform.scale(graph,(600,600))
+    screen.blit(graph,(screen_width-50,screen_height-50))'''

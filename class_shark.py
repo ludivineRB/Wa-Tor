@@ -35,9 +35,9 @@ class Shark(Fish):
             super().position((self.x_coordinate+1),(self.y_coordinate))
             ]
 
-        list_of_possible_positions_without_fish= list(set(list_positions_fish) & set(list_of_possible_positions))
+        list_of_possible_positions_without_fish= list((set(list_positions_fish) & set(list_of_possible_positions)) - set(list_positions_shark))
        
-        if len(list_of_possible_positions_without_fish)>0: 
+        if len(list_of_possible_positions_without_fish)>0:
             self.x_coordinate = list_of_possible_positions_without_fish[0][0]
             self.y_coordinate = list_of_possible_positions_without_fish[0][1]
             self.starvation_time = 3
@@ -52,20 +52,16 @@ class Shark(Fish):
             set_of_sharks_positions = set(list_positions_shark)
             set_of_babyshark_positions = set(tmp_positions_babyshark)
 
-            intersection_possible_and_fish_positions = set_of_possible_positions & set_of_fish_positions
-            intersection_possible_and_sharks_positions = set_of_possible_positions & set_of_sharks_positions
-            intersection_possible_and_babyshark_positions = set_of_possible_positions & set_of_babyshark_positions
-
-            possible_positions_without_fish = set_of_possible_positions-intersection_possible_and_fish_positions
-            possible_positions_without_sharks= set_of_possible_positions-intersection_possible_and_sharks_positions
-            possible_positions_without_babysharks = set_of_possible_positions - intersection_possible_and_babyshark_positions
+            possible_positions_without_fish = set_of_possible_positions- set_of_fish_positions
+            possible_positions_without_sharks= set_of_possible_positions-set_of_sharks_positions
+            possible_positions_without_babysharks = set_of_possible_positions - set_of_babyshark_positions
             list_of_possible_positions = list(possible_positions_without_fish & possible_positions_without_sharks & possible_positions_without_babysharks)
 
             if len(list_of_possible_positions) == 0:
                 self.x_coordinate = self.x_coordinate
                 self.y_coordinate = self.y_coordinate
             else:
-                #random.shuffle(list_of_possible_positions)  
+                random.shuffle(list_of_possible_positions)  
                 self.x_coordinate = list_of_possible_positions[0][0]
                 self.y_coordinate = list_of_possible_positions[0][1]
         self.reproduction_time+=1
