@@ -4,17 +4,16 @@
 import csv 
 import json
 
-def create_csv(chronon, number_of_fish, number_of_sharks, width, height):
+def create_csv(chronon, number_of_fish, number_of_sharks, average_age_fish, average_age_shark, average_nb_descendants_fish, average_nb_descendants_shark, average_distance_fish, average_distance_shark):
     with open("data_WaTor.csv", mode='w', newline='') as file:
         writer = csv.writer(file)
-       # writer.writerow([f"Taille de la grille :  {height} x {width}"])
         writer.writerow([])
-        writer.writerow(["chronon", "nb_fish", "nb_shark"])
-        writer.writerow([chronon, number_of_fish, number_of_sharks])
+        writer.writerow(["chronon", "nb_fish", "nb_shark", "average_age_fish", "average_age_shark", "nb_descendants_fish", "nb_descendants_shark", "average_distance_fish", "average_distance_shark"])
+        writer.writerow([chronon, number_of_fish, number_of_sharks, average_age_fish, average_age_shark,average_nb_descendants_fish, average_nb_descendants_shark, average_distance_fish, average_distance_shark])
         
 
-def update_csv(chronon, number_of_fish, number_of_sharks):
+def update_csv(chronon, number_of_fish, number_of_sharks, average_age_fish, average_age_shark,average_nb_descendants_fish, average_nb_descendants_shark, average_distance_fish, average_distance_shark):
     with open("data_WaTor.csv", mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([chronon, number_of_fish, number_of_sharks])
+        writer.writerow([chronon, number_of_fish, number_of_sharks, average_age_fish, average_age_shark,average_nb_descendants_fish, average_nb_descendants_shark, average_distance_fish, average_distance_shark])
     

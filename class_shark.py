@@ -3,7 +3,7 @@ from Fish import Fish
 import random
 
 class Shark(Fish):
-    def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time:int, starvation_time:int)->None:
+    def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time:int, starvation_time:int, age: int, nb_descendants: int, distance: int)->None:
         """_summary_ creation of the class Shark
 
         Args:
@@ -14,9 +14,9 @@ class Shark(Fish):
             reproduction_time (int): _description_ int
             starvation_time (int): _description_ int
         """
-        super().__init__(width, height, x_coordinate, y_coordinate, reproduction_time)
+        super().__init__(width, height, x_coordinate, y_coordinate, reproduction_time, age, nb_descendants, distance)
         self.starvation_time = starvation_time
-        
+        self.distance = distance
 
     def move(self, list_positions_fish:list[tuple[int,int]], list_positions_shark:list[tuple[int,int]], tmp_positions_babyshark:list[tuple[int,int]])->None:
         """_summary_ move shark, add + 1 to the reproduction_time variable and add 4 to the variable starvation_time if it eats a fish 
