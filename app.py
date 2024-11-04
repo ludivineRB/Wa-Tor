@@ -43,7 +43,7 @@ bigfont = pygame.font.SysFont('Corbel',200)
 text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
 title = bigfont.render('Wa-Tor', True, white)
-screen.blit(title, (screen_width/2,screen_height/2))
+screen.blit(title, (screen_width/2-150,screen_height/2))
 
 height = 40
 width = 40
@@ -95,15 +95,15 @@ def drawGrid(list_positions_fish:list[tuple[int,int]], list_positions_shark:list
     grid_height = height
     for x in range(grid_width):
         for y in range(grid_height):
-            rect = pygame.Rect(x*block_size, y*block_size, block_size, block_size)
+            rect = pygame.Rect(x*block_size+150, y*block_size+5, block_size, block_size)
             pygame.draw.rect(screen, blue_grid, rect,1)
             if (x,y) in list_positions_fish:
                 nemo = pygame.transform.scale(nemo,(25,25))
-                screen.blit(nemo,(x*block_size,y*block_size))
+                screen.blit(nemo,(x*block_size+150,y*block_size+5))
 
             elif (x,y) in list_positions_shark:
                 shark = pygame.transform.scale(shark,(25,25))
-                screen.blit(shark,(x*block_size,y*block_size))
+                screen.blit(shark,(x*block_size+150,y*block_size+5))
             
             else:
                 pass
@@ -120,7 +120,7 @@ def create_shark_text(list_positions_shark:list[tuple[int,int]])->str:
     Returns:
         str: _description_ number of sharks 
     """
-    text = 'number of shark: ' + str(len(list_positions_shark))
+    text = 'Number of shark: ' + str(len(list_positions_shark))
     return text
 
 def create_fish_text(list_positions_fish:list[tuple[int,int]])->str:
@@ -132,7 +132,7 @@ def create_fish_text(list_positions_fish:list[tuple[int,int]])->str:
     Returns:
         str: _description_ number of fish
     """
-    text = 'number of fish: ' + str(len(list_positions_fish))
+    text = 'Number of fish: ' + str(len(list_positions_fish))
     return text
 
 def create_chronon_text(chronon:int)->str:
@@ -168,9 +168,9 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         chronon_text = create_chronon_text(chronon)
         chronon_metre_text = smallfont.render(chronon_text, True, white)
 
-        screen.blit(shark_text, (screen_width-300,screen_height-200))
-        screen.blit(fish_text, (screen_width-300,screen_height-160))
-        screen.blit(chronon_metre_text, (screen_width-300,screen_height -120))
+        screen.blit(shark_text, (screen_width-300,screen_height-900))
+        screen.blit(fish_text, (screen_width-300,screen_height-860))
+        screen.blit(chronon_metre_text, (screen_width-300,screen_height -820))
 
         temp_list_positions_fish = []
         temp_list_positions_shark = []
@@ -242,24 +242,18 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
                 
             #checks if a mouse is clicked 
             if ev.type == pygame.MOUSEBUTTONDOWN: 
-                
-                #if the mouse is clicked on the 
-                # button the game is terminated 
-                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
-                    main_pygame(list_positions_fish,list_positions_shark,list_of_fish, list_of_sharks)
-
-                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+140:
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
                     pygame.quit()
-        
+                
         # stores the (x,y) coordinates into the variable as a tuple 
         mouse = pygame.mouse.get_pos() 
         
         pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
-        screen.blit(text2 , (screen_width+50-200,screen_height/2+50))
+        screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
 
-        if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 
-            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2,140,40])
-
+        if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 <= mouse[1] <= screen_height/2+80: 
+            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
+            screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
         #events as in button clicks
         pygame.display.update()
         fps.tick(10)
@@ -275,13 +269,12 @@ while True:
         #checks if a mouse is clicked 
         if ev.type == pygame.MOUSEBUTTONDOWN: 
               
-            #if the mouse is clicked on the 
-            # button the game is terminated 
+            #if the mouse is clicked on the button the game is terminated 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
                 main_pygame(list_positions_fish,list_positions_shark,list_of_fish, list_of_sharks)
                 #drawGrid(list_positions_fish,list_positions_shark)
 
-            if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+140:
+            if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
                 pygame.quit()
                   
     # while mouse_pressed:
@@ -291,14 +284,14 @@ while True:
     #create buttons with text on them and change colour if mouse hovers over them
     pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2,140,40]) 
     pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
-    screen.blit(text1 , (screen_width+50-200,screen_height/2))
-    screen.blit(text2 , (screen_width+50-200,screen_height/2+50))
+    screen.blit(text1 , (screen_width+50-200,screen_height/2+5))
+    screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
     
     if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 
         pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2,140,40])
-    
-    elif screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+140:
+        screen.blit(text1 , (screen_width+50-200,screen_height/2+5))
+    elif screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
         pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
-
+        screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
     # updates the frames of the game 
     pygame.display.update()
