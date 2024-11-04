@@ -35,9 +35,9 @@ class Shark(Fish):
             super().position((self.x_coordinate+1),(self.y_coordinate))
             ]
 
-        list_of_possible_positions_without_fish= list(set(list_positions_fish) & set(list_of_possible_positions))
+        list_of_possible_positions_without_fish= list((set(list_positions_fish) & set(list_of_possible_positions)) - set(list_positions_shark))
        
-        if len(list_of_possible_positions_without_fish)>0: 
+        if len(list_of_possible_positions_without_fish)>0:
             self.x_coordinate = list_of_possible_positions_without_fish[0][0]
             self.y_coordinate = list_of_possible_positions_without_fish[0][1]
             self.starvation_time = 3
