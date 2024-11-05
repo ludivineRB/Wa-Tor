@@ -65,10 +65,10 @@ def print_world(list_positions_fish:list[tuple[int,int]], list_positions_shark:l
     time.sleep(0.1) 
 
 chronon = 0
-data.create_csv(chronon, number_of_fish, number_of_sharks, 0, 0, 0, 0, 0, 0)
+# data.create_csv(chronon, number_of_fish, number_of_sharks, 0, 0, 0, 0, 0, 0)
 #infinite loop that will print to console 1 for fish 2 for shark and 0 for nothing
 while len(list_of_fish) != 0 or len(list_of_sharks)!=0:
-    #print_world(list_positions_fish, list_positions_shark)
+    print_world(list_positions_fish, list_positions_shark)
     temp_list_positions_fish = []
     temp_list_positions_shark = []
     temp_list_of_fish = []
@@ -167,12 +167,12 @@ while len(list_of_fish) != 0 or len(list_of_sharks)!=0:
     average_nb_descendants_shark = int(average_nb_descendants_shark/len(list_of_sharks))
     average_distance_shark = int(average_distance_shark/len(list_of_sharks))
 
-    chronon += 1
+    # chronon += 1
 
-    number_of_fish = len(list_positions_fish)
-    number_of_sharks=len(list_positions_shark)
+    # number_of_fish = len(list_positions_fish)
+    # number_of_sharks=len(list_positions_shark)
 
 
-    data.update_csv(chronon, number_of_fish, number_of_sharks, average_age_fish, average_age_shark, average_nb_descendants_fish, average_nb_descendants_shark, average_distance_fish, average_distance_shark)
-    print(chronon)
+    # data.update_csv(chronon, number_of_fish, number_of_sharks, average_age_fish, average_age_shark, average_nb_descendants_fish, average_nb_descendants_shark, average_distance_fish, average_distance_shark)
+    # print(chronon)
 
