@@ -4,7 +4,7 @@ from class_shark import Shark
 import random
 import os
 import time
-import pygame 
+import pygame
 import sys
 
   
