@@ -24,10 +24,14 @@ def update_csv(chronon, number_of_fish, number_of_sharks):
     
 def create_plot():
     data = pd.read_csv('data_WaTor.csv', sep=',')
-    data.rename(index=str, columns={"nb_fish":"nombre de poisson", "nb_shark":"nombre de requin"}, inplace=True)
-    data["nombre total animaux"]=data["nombre de poisson"]+data["nombre de requin"]
-    plt.plot(data["chronon"], data["nombre de poisson"], color="lightblue")
-    plt.plot(data["chronon"], data["nombre de requin"], color="darkblue")
+    data.rename(index=str, columns={"nb_fish":"number of fish", "nb_shark":"number of sharks"}, inplace=True)
+    data["number of animals"]=data["number of fish"]+data["number of sharks"]
+    plt.plot(data["chronon"], data["number of fish"], color="lightblue", label='Number of fish')
+    plt.plot(data["chronon"], data["number of sharks"], color="darkblue", label='Number of sharks')
+    plt.title("Evolution des populations d'animaux")
+    plt.xlabel("Chronons")
+    plt.ylabel("Nombre d'individus")
+    #plt.legend() # a revoir pour ajouter
 
-    graph = plt.savefig('data.png', bbox_inches='tight') #bbox_inches pour éviter des marges trop grandes
-    return graph 
+    plt.savefig('data.png', bbox_inches='tight', dpi = 200) #bbox_inches pour éviter des marges trop grandes
+   

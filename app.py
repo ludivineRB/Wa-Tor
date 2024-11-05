@@ -43,6 +43,7 @@ bigfont = pygame.font.SysFont('Corbel',200)
 text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
 text3 = smallfont.render('graph' , True , white)
+text4 = smallfont.render('return' , True , white)
 title = bigfont.render('Wa-Tor', True, white)
 screen.blit(title, (screen_width/2-150,screen_height/2))
 LEFT = 1
@@ -270,60 +271,39 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         pygame.display.update()
         fps.tick(10)
 
-    
-"""def open_graph():
-    #Ouvre une nouvelle fenêtre pour afficher l'image.
-    try:
-        graph= pygame.image.load("data.png")
+def open_graph():
+    screen = pygame.display.set_mode(res)
+    continuer = True
+    while continuer:
         ocean_waves = pygame.image.load("ocean-waves.jpg") 
         ocean_waves = pygame.transform.scale(ocean_waves,res)
-        screen.blit(ocean_waves, (0,0))
-    except pygame.error:
-        print('erreur image')
-        sys.exit()
-
-    screen_width = screen.get_width() 
-    screen_height = screen.get_height()
-    ocean_waves = pygame.image.load("ocean-waves.jpg") 
-    ocean_waves = pygame.transform.scale(ocean_waves,res)
-    screen.blit(ocean_waves, (0,0))
-    #graph= pygame.display.set_mode(graph.get_size())
-    #Peut être réessayer en mettant tous les paramètres de screen
-    pygame.display.set_caption("Dynamic of population")
-    pygame.draw.rect(screen, graph, [screen_width,screen_height])
-    
-    running = True
-    while running:
+        #display of the 'ocean_waves' paper wall
+        screen.blit(ocean_waves, (0,0)) 
+        graph= pygame.image.load("data.png")
+        #display of the graph
+        screen.blit(graph, (screen_width/2-500,screen_height/2-500)) 
+        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40])
+        screen.blit(text4 , (screen_width+50-200,screen_height/2+45))
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-        pygame.display.set_caption("Dynamic of population")
-        pygame.draw.rect(screen, color_dark, ))
-        pygame.draw.rect(Surface, color, Rect, width=0)
-        # Affiche l'image dans la nouvelle fenêtre
-        pygame.display.set_mode((screen_width, screen_height))
-        pygame.display.set_caption("Dynamic of population")
-        #graph.fill(color_dark)
-        #graph.blit(graph, (width, height))
-        #graph = pygame.transform.scale(graph,res)
-        #screen.blit(graph, (0,0))
-        #il faut bien faire la différence entre le screen et l'image..
-        #demain il faut voir pour dans un premier temps afficher une fenetre.
-        #puis un bouton de sortie qui ramène à l'écran d'accueil
-        #puis le graph. DANS CET ORDRE
-        #mouse = pygame.mouse.get_pos() 
-        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
 
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT: 
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
+                    continuer=False
+
+        mouse = pygame.mouse.get_pos()    
         if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 <= mouse[1] <= screen_height/2+80: 
             pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
-            screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
-        
-    
-    # Quand on quitte la fenêtre de l'image, on revient à la fenêtre principale
-    pygame.display.set_mode((screen_width, screen_height))
-    pygame.display.set_caption("Grille et bouton")
-"""
+            screen.blit(text4 ,(screen_width+50-200,screen_height/2+45))
 
+
+        #pygame.display.update()      
+        pygame.display.flip()
+
+    pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption("Simulator")
 #infinite loop to run pygame
 while True:
     #events as in button clicks
