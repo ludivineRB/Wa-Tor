@@ -29,4 +29,5 @@ def create_plot():
     plt.plot(data["chronon"], data["nombre de poisson"], color="lightblue")
     plt.plot(data["chronon"], data["nombre de requin"], color="darkblue")
 
-    plt.savefig('data.png', bbox_inches='tight') #bbox_inches pour éviter des marges trop grandes
+    graph = plt.savefig('data.png', bbox_inches='tight') #bbox_inches pour éviter des marges trop grandes
+    return graph 

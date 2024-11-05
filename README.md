@@ -1,14 +1,15 @@
-# Projet Wator / Wator Project
+# Wa-tor Project / Projet Wa-tor
 
-> **Un projet cosigné par David, Maxime et Ludivine / A project co-signed by David, Maxime, and Ludivine**
+> **A project co-signed by David, Maxime, and Ludivine /Un projet cosigné par David, Maxime et Ludivine**
+ 
+This project implements a simulation of the Wator ecosystem using **object-oriented programming**. It models a marine ecosystem populated by fish and sharks, where each entity acts autonomously, moving based on a list of surrounding objects. The simulation is developed in Python and offers two display modes:
+1. A console version for a quick, simple visualization.
+2. A graphical version using Pygame for an interactive experience.
 
 Ce projet implémente une simulation de l'écosystème Wator en **programmation orientée objet**. Il s'agit d'une modélisation de vie marine peuplée de poissons et de requins, où chaque entité agit de manière autonome, se déplaçant en fonction d'une liste d'objets environnants. La simulation est développée en Python avec deux modes d'affichage :
 1. Une version console pour une visualisation simple et rapide.
 2. Une version graphique avec Pygame pour une expérience interactive.
 
-This project implements a simulation of the Wator ecosystem using **object-oriented programming**. It models a marine ecosystem populated by fish and sharks, where each entity acts autonomously, moving based on a list of surrounding objects. The simulation is developed in Python and offers two display modes:
-1. A console version for a quick, simple visualization.
-2. A graphical version using Pygame for an interactive experience.
 
 ---
 
@@ -18,22 +19,11 @@ This project implements a simulation of the Wator ecosystem using **object-orien
 - [Installation](#installation)
 - [Utilisation / Usage](#utilisation--usage)
 - [Contributeurs / Contributors](#contributeurs--contributors)
-- [Licence / License](#licence--license)
 - [Notes supplémentaires / Additional Notes](#notes-supplémentaires--additional-notes)
 
 ---
 
-## Description du projet / Project Description
-
-### Français
-Wator est une simulation de vie marine où deux types d'espèces interagissent dans un environnement fermé :
-- Les **poissons** se déplacent librement et se reproduisent après un certain nombre de cycles.
-- Les **requins** chassent les poissons pour survivre, se déplacent, et se reproduisent également après plusieurs cycles. En l'absence de nourriture, les requins meurent.
-
-Chaque espèce utilise la programmation orientée objet pour suivre des règles simples :
-- **Déplacement** : Les poissons et requins se déplacent en fonction des objets environnants.
-- **Reproduction** : Les espèces peuvent se reproduire après un certain nombre de cycles.
-- **Prédation** : Les requins chassent les poissons proches. Sans nourriture, ils meurent après plusieurs cycles.
+## Project Description / Description du projet 
 
 ### English
 Wator is a marine life simulation where two types of species interact in a closed environment:
@@ -45,53 +35,79 @@ Each species uses object-oriented programming to follow simple rules:
 - **Reproduction**: Both species reproduce after a specified number of cycles.
 - **Predation**: Sharks hunt nearby fish. Without food, they die after several cycles.
 
+### Français
+Wator est une simulation de vie marine où deux types d'espèces interagissent dans un environnement fermé :
+- Les **poissons** se déplacent librement et se reproduisent après un certain nombre de cycles.
+- Les **requins** chassent les poissons pour survivre, se déplacent, et se reproduisent également après plusieurs cycles. En l'absence de nourriture, les requins meurent.
+
+Chaque espèce utilise la programmation orientée objet pour suivre des règles simples :
+- **Déplacement** : Les poissons et requins se déplacent en fonction des objets environnants.
+- **Reproduction** : Les espèces peuvent se reproduire après un certain nombre de cycles.
+- **Prédation** : Les requins chassent les poissons proches. Sans nourriture, ils meurent après plusieurs cycles.
+
 ---
 
-## Fonctionnalités / Features
+## Features / Fonctionnalités 
 
 ### Version Console
-- **Français** : Affichage simplifié de la grille avec des symboles pour chaque espèce.
-- **English** : Simplified grid display with symbols for each species.
+- **English** : Simplified grid display with symbols for each species ('f' pour fish et 'S' pour shark).
   
+- **Français** : Affichage simplifié de la grille avec des symboles pour chaque espèce('f' pour fish et 'S' pour shark).
+
 ### Version Pygame
-- **Français** : Interface graphique avec une grille animée illustrant les déplacements.
-- **English** : Graphical interface with an animated grid showing movements.
+- **English** : Graphical interface showing interactions between different objects on the grid.
+
+- **Français** : Interface graphique représentant les intéractions des objets entre eux au sein de la grille.
 
 ---
 
 ## Installation
 
-### Prérequis / Prerequisites
+### Prerequisites / Prérequis 
 - **Python** (version >= 3.9)
 - **Pygame** : Installez Pygame avec / Install Pygame with:
   ```bash
   pip install pygame
 
-### Clonage du projet / Project Cloning
+### Project Cloning / Clonage du projet 
   ```bash```
-git clone https://github.com/votre-utilisateur/projet-wator.git
+git clone https://github.com/ludivineRB/Wa-Tor.git
 cd projet-wator
 
-### Lancer la simulation / Running the simulation
+### Running the simulation / Lancer la simulation 
 - **Version Console**
-python wator_console.py #A changer
+python main.py 
 - **Version Pygame**
-python wator_pygame.py
+python app.py 
 
-## Utilisation / Usage
+## Usage / Utilisation 
 
-## Contributeurs / Contributors
-Ce projet a été conçu et réalisé par / This project was created by:
+Wa-Tor closed environment simulation including two species sharks and fish, and a predation relationship between the two. For a stable simulation, the optimal criteria are:
+-grid size: 40*40
+-shark population: ~25
+-fish population: ~200
+-shark reproduction time: 6 chronons
+-fish reproduction time: 1 chronon
+-starvation time: 2 chronons
 
-    David
-    Maxime
-    Ludivine
 
-## Licence / License
+Simulation d'environnement clos Wa-Tor comprenant deux espèces requins et poissons, et une relation de prédation entre les deux. Pour une simulation stable, les critères optimaux sont:
+-taille de la grille : 40*40
+-population de requins: ~25
+-population de poissons: ~200
+-temps de reproduction requins: 6 chronons
+-temps de reproduction poissons : 1 chronon
+-temps de famine : 2 chronons
 
+## Contributors / Contributeurs 
+This project was created by: / Ce projet a été conçu et réalisé par 
 
-## Notes supplémentaires / Additional Notes
+    David (Daviddavid-sudo)
+    Maxime (TheMaxfly)
+    Ludivine (ludivineRB)
 
-Ce projet est un exemple de modélisation multi-agents et de simulation stochastique.
+## Additional Notes /Notes supplémentaires 
 
 This project serves as an example of multi-agent modeling and stochastic simulation.
+Ce projet est un exemple de modélisation multi-agents et de simulation stochastique.
+

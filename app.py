@@ -42,6 +42,7 @@ smallfont = pygame.font.SysFont('Corbel',35)
 bigfont = pygame.font.SysFont('Corbel',200)
 text1 = smallfont.render('start' , True , white)
 text2 = smallfont.render('quit' , True , white)
+text3 = smallfont.render('graph' , True , white)
 title = bigfont.render('Wa-Tor', True, white)
 screen.blit(title, (screen_width/2-150,screen_height/2))
 LEFT = 1
@@ -88,7 +89,6 @@ def drawGrid(list_positions_fish:list[tuple[int,int]], list_positions_shark:list
     nemo = pygame.image.load("nemo-removebg-preview.png")
     shark = pygame.image.load("shark-removebg-preview.png")
     ocean = pygame.image.load('ocean.png')
-    graph = pygame.image.load('data.png')
     ocean = pygame.transform.scale(ocean,res)
     screen.blit(ocean, (0,0))
     #create grid dimensions
@@ -240,27 +240,89 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         data.update_csv(chronon, len(list_of_fish),len(list_of_sharks))
         data.create_plot()
         for ev in pygame.event.get(): 
-            
             if ev.type == pygame.QUIT: 
-                pygame.quit() 
-                
+                pygame.quit()  
             #checks if a mouse is clicked 
             if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT: 
                 if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
                     pygame.quit()
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+80< mouse[1] <= screen_height/2+140:
+                    open_graph()
+                
+                
                 
         # stores the (x,y) coordinates into the variable as a tuple 
         mouse = pygame.mouse.get_pos() 
         
         pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
         screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
+        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+80,140,40]) 
+        screen.blit(text3 , (screen_width+50-200,screen_height/2+85))
 
         if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 <= mouse[1] <= screen_height/2+80: 
             pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
             screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
+        elif  screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+80 < mouse[1] <= screen_height/2+120:
+            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+80,140,40])
+            screen.blit(text3 , (screen_width+50-200,screen_height/2+85))
+
         #events as in button clicks
         pygame.display.update()
         fps.tick(10)
+
+    
+"""def open_graph():
+    #Ouvre une nouvelle fenêtre pour afficher l'image.
+    try:
+        graph= pygame.image.load("data.png")
+        ocean_waves = pygame.image.load("ocean-waves.jpg") 
+        ocean_waves = pygame.transform.scale(ocean_waves,res)
+        screen.blit(ocean_waves, (0,0))
+    except pygame.error:
+        print('erreur image')
+        sys.exit()
+
+    screen_width = screen.get_width() 
+    screen_height = screen.get_height()
+    ocean_waves = pygame.image.load("ocean-waves.jpg") 
+    ocean_waves = pygame.transform.scale(ocean_waves,res)
+    screen.blit(ocean_waves, (0,0))
+    #graph= pygame.display.set_mode(graph.get_size())
+    #Peut être réessayer en mettant tous les paramètres de screen
+    pygame.display.set_caption("Dynamic of population")
+    pygame.draw.rect(screen, graph, [screen_width,screen_height])
+    
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        pygame.display.set_caption("Dynamic of population")
+        pygame.draw.rect(screen, color_dark, ))
+        pygame.draw.rect(Surface, color, Rect, width=0)
+        # Affiche l'image dans la nouvelle fenêtre
+        pygame.display.set_mode((screen_width, screen_height))
+        pygame.display.set_caption("Dynamic of population")
+        #graph.fill(color_dark)
+        #graph.blit(graph, (width, height))
+        #graph = pygame.transform.scale(graph,res)
+        #screen.blit(graph, (0,0))
+        #il faut bien faire la différence entre le screen et l'image..
+        #demain il faut voir pour dans un premier temps afficher une fenetre.
+        #puis un bouton de sortie qui ramène à l'écran d'accueil
+        #puis le graph. DANS CET ORDRE
+        #mouse = pygame.mouse.get_pos() 
+        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
+
+        if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 <= mouse[1] <= screen_height/2+80: 
+            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
+            screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
+        
+    
+    # Quand on quitte la fenêtre de l'image, on revient à la fenêtre principale
+    pygame.display.set_mode((screen_width, screen_height))
+    pygame.display.set_caption("Grille et bouton")
+"""
 
 #infinite loop to run pygame
 while True:
@@ -279,7 +341,7 @@ while True:
                 #drawGrid(list_positions_fish,list_positions_shark)
 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
-                pygame.quit()
+                open_graph()
                   
     # while mouse_pressed:
     # stores the (x,y) coordinates into the variable as a tuple 
@@ -288,6 +350,7 @@ while True:
     #create buttons with text on them and change colour if mouse hovers over them
     pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2,140,40]) 
     pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
+    
     screen.blit(text1 , (screen_width+50-200,screen_height/2+5))
     screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
     
@@ -299,7 +362,3 @@ while True:
         screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
     # updates the frames of the game 
     pygame.display.update()
-
-
-    '''graph = pygame.transform.scale(graph,(600,600))
-    screen.blit(graph,(screen_width-50,screen_height-50))'''
