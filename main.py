@@ -54,16 +54,14 @@ def print_world(list_positions_fish:list[tuple[int,int]], list_positions_shark:l
         row = ""
         for x in range(width):
             if (x,y) in list_positions_fish:
-                row += f"\033[33m" + "\033[1m" +" f " + "\033[0m" +"|"
-
+                row += f"\U0001F420" + "|"
             elif (x,y) in list_positions_shark:
-                row += f"\033[34m" + "\033[1m" + " S " + "\033[0m"+"|"
-            
+                row += f"\U0001F988" + "|"
             else:
-                row += f"\033[32m" + "\033[1m" + " ~ " + "\033[0m"+"|"
-        print('----'* width)
+                row += f"\U0001F30A" + "|"
+        print('----'*30)
         print(row)
-    time.sleep(0.1) 
+    time.sleep(0.3) 
 
 chronon = 0
 data.create_csv(chronon, number_of_fish, number_of_sharks)
