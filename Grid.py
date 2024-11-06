@@ -1,18 +1,23 @@
 class Grid:
     def __init__(self, width: int, height: int) -> None:
+        """_summary_ creation of the class Grid
+
+        Args:
+            width (int): _description_
+            height (int): _description_
+        """
         self.width = width
         self.height = height
     
     def position(self, x: int, y: int) -> tuple[int]:
-        """
-            Takes x and y coordinates and converts it to the torus planet
+        """_summary_ converts coordinates
 
-            args
-            x coordinate which is an int
-            y coordinate which is an int
+        Args:
+            x (int): _description_
+            y (int): _description_
 
-            returns
-            tuple of x and y coordinate
+        Returns:
+            tuple[int]: _description_
         """
         x = x % self.width
         y = y % self.height
