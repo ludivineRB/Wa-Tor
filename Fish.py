@@ -4,7 +4,7 @@ from Grid import Grid
 
 class Fish(Grid):
 
-    def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time: int) -> None:
+    def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time: int, age: int, nb_descendants: int, distance) -> None:
         """_summary_ creation of the class Fish
 
         Args:
@@ -19,6 +19,9 @@ class Fish(Grid):
         self.reproduction_time = reproduction_time
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
+        self.age = age
+        self.nb_descendants = nb_descendants
+        self.distance = distance
 
 
     def move(self, list_positions_fish:list[tuple[int,int]], list_positions_shark:list[tuple[int,int]], tmp_positions_babyshark:list[tuple[int,int]], tmp_positions_babyfish:list[tuple[int,int]])->None:

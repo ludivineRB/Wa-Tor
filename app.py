@@ -18,7 +18,9 @@ clock = pygame.time.Clock()
 
 # FPS (frames per second) controller
 fps = pygame.time.Clock()
-
+pygame.mixer.music.load('Sous locéan (De La Petite SirèneFrench Audio Only).mp3')
+pygame.mixer.music.play()
+pygame.mixer.music.play(loops = -1)
 # initalize colours
 white = (255,255,255) 
 color_light = (170,170,170) 
@@ -70,11 +72,11 @@ for y in range(height):
 list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 
 for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 2))
+    list_of_sharks.append(Shark(width,height,shark[0],shark[1],0, 2,0,0,0))
 
 
 for fish in list_of_random_coordinates[number_of_sharks:]:
-    list_of_fish.append(Fish(width,height,fish[0],fish[1],0))
+    list_of_fish.append(Fish(width,height,fish[0],fish[1],0,0,0,0))
 
 list_positions_fish = [(fish.x_coordinate, fish.y_coordinate) for fish in list_of_fish]
 list_positions_shark = [(shark.x_coordinate, shark.y_coordinate) for shark in list_of_sharks] 
@@ -162,7 +164,7 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         list_of_sharks (list[object]): _description_ list of all sharks object
     """
     chronon = 0
-    data.create_csv(chronon, number_of_fish,number_of_sharks)
+    data.create_csv(chronon, number_of_fish, number_of_sharks, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     while len(list_of_fish) != 0  and len(list_of_sharks)!=-0:
         drawGrid(list_positions_fish, list_positions_shark)
         nb_shark_text = create_shark_text(list_positions_shark)
@@ -183,13 +185,19 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         temp_positions_babyshark = []
         temp_positions_babyfish = []
         list_of_shared_positions= [] 
+        average_age_fish = 0
+        average_age_shark = 0
+        average_nb_descendants_fish = 0
+        average_nb_descendants_shark = 0
+        average_distance_fish = 0
+        average_distance_shark = 0
 
         #loop to move sharks
         for j in range(len(list_of_sharks)):
             x_old = list_of_sharks[j].x_coordinate
             y_old = list_of_sharks[j].y_coordinate
             list_of_sharks[j].move(list_positions_fish, list_positions_shark, temp_positions_babyshark)
-            
+            list_of_sharks[j].age += 1
             #checks starvation time of shark
             if list_of_sharks[j].starvation_time == 0:
                 pass
@@ -197,13 +205,16 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
                 temp_list_positions_shark.append((list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate))
                 temp_list_of_shark.append(list_of_sharks[j])
                 list_positions_shark[j] =(list_of_sharks[j].x_coordinate, list_of_sharks[j].y_coordinate)
+                if list_of_sharks[j].x_coordinate != x_old or list_of_sharks[j].y_coordinate != y_old:
+                    list_of_sharks[j].distance += 1
                 #reproduction of sharks
                 if list_of_sharks[j].reproduction_time > 6:
                     if list_of_sharks[j].x_coordinate != x_old or list_of_sharks[j].y_coordinate != y_old:
-                        temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,2))
+                        temp_list_of_shark.append(Shark(height, width, x_old,y_old, 0,2,0,0,0))
                         temp_list_positions_shark.append((x_old, y_old))
                         list_of_sharks[j].reproduction_time = 0
                         temp_positions_babyshark.append((x_old,y_old))
+                        list_of_sharks[j].nb_descendants += 1
 
 
                 #checks if shark eats a fish
@@ -224,13 +235,17 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
                 temp_list_positions_fish.append((list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate))
                 list_positions_fish[i] = (list_of_fish[i].x_coordinate, list_of_fish[i].y_coordinate)
                 temp_list_of_fish.append(list_of_fish[i])
+                if list_of_fish[i].x_coordinate != x_old or list_of_fish[i].y_coordinate != y_old:
+                    list_of_fish[i].distance += 1
                 #reproduction of fish
                 if list_of_fish[i].reproduction_time > 1:
                     if list_of_fish[i].x_coordinate != x_old or list_of_fish[i].y_coordinate != y_old:
-                        temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0))
+                        list_of_fish[i].distance += 1
+                        temp_list_of_fish.append(Fish(height, width, x_old,y_old, 0,0,0,0))
                         temp_list_positions_fish.append((x_old, y_old))
                         list_of_fish[i].reproduction_time = 0
                         temp_positions_babyfish.append((x_old,y_old))
+                        list_of_fish[i].nb_descendants += 1
 
         #update list
         list_positions_shark = temp_list_positions_shark
@@ -238,7 +253,43 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         list_of_fish = temp_list_of_fish   
         list_positions_fish = temp_list_positions_fish
         chronon += 1
-        data.update_csv(chronon, len(list_of_fish),len(list_of_sharks))
+        max_nb_descendants_fish = 0
+        max_nb_descendants_shark = 0
+        max_distance_fish = 0
+        max_distance_shark = 0
+
+        for fish in list_of_fish:
+            average_age_fish+=fish.age
+            average_nb_descendants_fish += fish.nb_descendants
+            average_distance_fish += fish.distance
+        if fish.nb_descendants > max_nb_descendants_fish:
+            max_nb_descendants_fish = fish.nb_descendants
+        if fish.distance > max_distance_fish:
+            max_distance_fish = fish.distance
+
+
+
+        average_age_fish = int(average_age_fish/len(list_of_fish))
+        average_nb_descendants_fish = int(average_nb_descendants_fish/len(list_of_fish))
+        average_distance_fish = int(average_distance_fish/len(list_of_fish))
+
+        for shark in list_of_sharks:
+            average_age_shark+=shark.age
+            average_nb_descendants_shark += shark.nb_descendants
+            average_distance_shark += shark.distance
+            if shark.nb_descendants > max_nb_descendants_shark:
+                max_nb_descendants_shark = shark.nb_descendants
+            if shark.distance > max_distance_shark:
+                max_distance_shark = shark.distance
+
+
+        average_age_shark = int(average_age_shark/len(list_of_sharks))
+        average_nb_descendants_shark = int(average_nb_descendants_shark/len(list_of_sharks))
+        average_distance_shark = int(average_distance_shark/len(list_of_sharks))
+
+        data.update_csv(chronon, len(list_of_fish),len(list_of_sharks),average_age_fish, average_age_shark,average_nb_descendants_fish, 
+               average_nb_descendants_shark, average_distance_fish, average_distance_shark, 
+               max_nb_descendants_fish, max_nb_descendants_shark, max_distance_fish, max_distance_shark)
         data.create_plot()
         for ev in pygame.event.get(): 
             if ev.type == pygame.QUIT: 
@@ -280,8 +331,10 @@ def open_graph():
         #display of the 'ocean_waves' paper wall
         screen.blit(ocean_waves, (0,0)) 
         graph= pygame.image.load("data.png")
+        graph2=pygame.image.load("distance.png")
         #display of the graph
-        screen.blit(graph, (screen_width/2-500,screen_height/2-500)) 
+        screen.blit(graph, (screen_width/2-850,screen_height/2-300)) 
+        screen.blit(graph2, (screen_width/2-10,screen_height/2-300)) 
         pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2,140,40])
         screen.blit(text4 , (screen_width+50-200,screen_height/2+5))
         pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40])
@@ -327,8 +380,7 @@ while True:
                 #drawGrid(list_positions_fish,list_positions_shark)
 
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
-                open_graph()
-                  
+                pygame.quit()
     # while mouse_pressed:
     # stores the (x,y) coordinates into the variable as a tuple 
     mouse = pygame.mouse.get_pos() 
