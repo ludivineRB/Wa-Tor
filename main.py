@@ -1,8 +1,8 @@
 from Fish import Fish
 from class_shark import Shark
-import random
 import data
 from printworld import print_world
+import list_creation
 
 height = 40
 width = 40
@@ -11,27 +11,7 @@ width = 40
 number_of_sharks = 25
 number_of_fish = 200
 number_of_animals = number_of_sharks + number_of_fish
-
-#initialize objects
-list_of_coordinates = []
-list_of_sharks = []
-list_of_fish = []
-
-for y in range(height):
-    for x in range(width):
-        list_of_coordinates.append((x,y))
-
-#create random coordinates for animals
-list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
-
-for shark in list_of_random_coordinates[:number_of_sharks]:
-    list_of_sharks.append(Shark(width, height, shark[0], shark[1], 0, 2, 0, 0, 0))
-
-for fish in list_of_random_coordinates[number_of_sharks:]:
-    list_of_fish.append(Fish(width, height, fish[0], fish[1], 0, 0, 0, 0))
-
-list_positions_fish = [(fish.x_coordinate, fish.y_coordinate) for fish in list_of_fish]
-list_positions_shark = [(shark.x_coordinate, shark.y_coordinate) for shark in list_of_sharks] 
+list_of_fish, list_of_sharks, list_positions_fish, list_positions_shark = list_creation.list_creation(height, width, number_of_sharks, number_of_animals)
 
 chronon = 0
 data.create_csv(chronon, number_of_fish, number_of_sharks, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
