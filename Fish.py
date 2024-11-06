@@ -3,22 +3,27 @@ from Grid import Grid
 
 
 class Fish(Grid):
-
-    def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time: int) -> None:
+    def __init__(self, width:int, height:int, x_coordinate:int, y_coordinate:int, reproduction_time: int, age: int, nb_descendants: int, distance) -> None:
         """_summary_ creation of the class Fish
 
+
         Args:
-            width (int): _description_ int
-            height (int): _description_ int
-            x_coordinate (int): _description_ int
-            y_coordinate (int): _description_ int
-            reproduction_time (int): _description_ int
+            width (int): _description_
+            height (int): _description_
+            x_coordinate (int): _description_
+            y_coordinate (int): _description_
+            reproduction_time (int): _description_
+            age (int): _description_
+            nb_descendants (int): _description_
+            distance (_type_): _description_
         """
-        self.width = width
-        self.height = height
+        super().__init__(width, height)
         self.reproduction_time = reproduction_time
         self.x_coordinate = x_coordinate
         self.y_coordinate = y_coordinate
+        self.age = age
+        self.nb_descendants = nb_descendants
+        self.distance = distance
 
 
     def move(self, list_positions_fish:list[tuple[int,int]], list_positions_shark:list[tuple[int,int]], tmp_positions_babyshark:list[tuple[int,int]], tmp_positions_babyfish:list[tuple[int,int]])->None:
@@ -31,7 +36,6 @@ class Fish(Grid):
             tmp_positions_babyfish (list[tuple[int,int]]): _description_ list of the positions of each object babyfish
         Return: None
         """
-        
         list_of_possible_positions = [
             super().position(self.x_coordinate, self.y_coordinate+1),
             super().position((self.x_coordinate),(self.y_coordinate-1)),
@@ -55,9 +59,8 @@ class Fish(Grid):
         if len(list_of_possible_positions) == 0:
             self.x_coordinate = self.x_coordinate
             self.y_coordinate = self.y_coordinate
-            self.reproduction_time+=1
         else:
             random.shuffle(list_of_possible_positions)  
             self.x_coordinate = list_of_possible_positions[0][0]
             self.y_coordinate = list_of_possible_positions[0][1]
-            self.reproduction_time+=1
+        self.reproduction_time+=1
