@@ -23,15 +23,18 @@ def update_csv(chronon, number_of_fish, number_of_sharks):
         writer.writerow([chronon, number_of_fish, number_of_sharks])
     
 def create_plot():
+    
     data = pd.read_csv('data_WaTor.csv', sep=',')
     data.rename(index=str, columns={"nb_fish":"number of fish", "nb_shark":"number of sharks"}, inplace=True)
     data["number of animals"]=data["number of fish"]+data["number of sharks"]
-    plt.plot(data["chronon"], data["number of fish"], color="lightblue", label='Number of fish')
-    plt.plot(data["chronon"], data["number of sharks"], color="darkblue", label='Number of sharks')
-    plt.title("Evolution des populations d'animaux")
+    plt.clf()
+    
+    plt.stairs(data["number of fish"], color="lightblue", label='Number of fish')
+    plt.stairs(data["number of sharks"], color="darkblue", label='Number of sharks')
+    plt.title("Evolution of animals population")
     plt.xlabel("Chronons")
-    plt.ylabel("Nombre d'individus")
-    #plt.legend() # a revoir pour ajouter
-
-    plt.savefig('data.png', bbox_inches='tight', dpi = 200) #bbox_inches pour éviter des marges trop grandes
+    plt.ylabel("Number of animal")
+    plt.legend() # a revoir pour ajouter
+   
+    plt.savefig('data.png', bbox_inches='tight', dpi = 150) #bbox_inches pour éviter des marges trop grandes
    

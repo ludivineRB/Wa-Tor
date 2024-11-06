@@ -247,7 +247,7 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
             if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT: 
                 if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
                     pygame.quit()
-                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+80< mouse[1] <= screen_height/2+140:
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2< mouse[1] <= screen_height/2+40:
                     open_graph()
                 
                 
@@ -257,15 +257,15 @@ def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:li
         
         pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40]) 
         screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
-        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+80,140,40]) 
-        screen.blit(text3 , (screen_width+50-200,screen_height/2+85))
+        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2,140,40]) 
+        screen.blit(text3 , (screen_width+50-200,screen_height/2+5))
 
         if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 <= mouse[1] <= screen_height/2+80: 
             pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
             screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
-        elif  screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+80 < mouse[1] <= screen_height/2+120:
-            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+80,140,40])
-            screen.blit(text3 , (screen_width+50-200,screen_height/2+85))
+        elif  screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 < mouse[1] <= screen_height/2+40:
+            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2,140,40])
+            screen.blit(text3 , (screen_width+50-200,screen_height/2+5))
 
         #events as in button clicks
         pygame.display.update()
@@ -282,21 +282,27 @@ def open_graph():
         graph= pygame.image.load("data.png")
         #display of the graph
         screen.blit(graph, (screen_width/2-500,screen_height/2-500)) 
+        pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2,140,40])
+        screen.blit(text4 , (screen_width+50-200,screen_height/2+5))
         pygame.draw.rect(screen,color_dark,[screen_width-200,screen_height/2+40,140,40])
-        screen.blit(text4 , (screen_width+50-200,screen_height/2+45))
-        
+        screen.blit(text2 , (screen_width+50-200,screen_height/2+45))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-
+            if event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT: 
+                if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 < mouse[1] <= screen_height/2+40:
+                    continuer=False
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == LEFT: 
                 if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
-                    continuer=False
+                    pygame.quit()
 
         mouse = pygame.mouse.get_pos()    
-        if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 <= mouse[1] <= screen_height/2+80: 
+        if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40: 
+            pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2,140,40])
+            screen.blit(text4 ,(screen_width+50-200,screen_height/2+5))
+        elif screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40<= mouse[1] <= screen_height/2+80: 
             pygame.draw.rect(screen,color_light,[screen_width-200,screen_height/2+40,140,40])
-            screen.blit(text4 ,(screen_width+50-200,screen_height/2+45))
+            screen.blit(text2 ,(screen_width+50-200,screen_height/2+45))
 
 
         #pygame.display.update()      
