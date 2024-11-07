@@ -50,9 +50,9 @@ Chaque espèce utilise la programmation orientée objet pour suivre des règles 
 ## Features / Fonctionnalités 
 
 ### Version Console
-- **English** : Simplified grid display with symbols for each species ('f' pour fish et 'S' pour shark).
+- **English** : Simplified grid display with symbols for each species ('🐠' pour fish et '🦈' pour shark).
   
-- **Français** : Affichage simplifié de la grille avec des symboles pour chaque espèce('f' pour fish et 'S' pour shark).
+- **Français** : Affichage simplifié de la grille avec des symboles pour chaque espèce('🐠' pour fish et '🦈' pour shark).
 
 ### Version Pygame
 - **English** : Graphical interface showing interactions between different objects on the grid.
