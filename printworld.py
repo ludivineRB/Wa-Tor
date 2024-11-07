@@ -12,8 +12,8 @@ def print_world(list_positions_fish:list[tuple[int,int]], list_positions_shark:l
     """
     
     os.system("clear")
-    print( end="")
- 
+    print(end="")
+    world_display=""
     for y in range(height):
         row = ""
         for x in range(width):
@@ -23,6 +23,8 @@ def print_world(list_positions_fish:list[tuple[int,int]], list_positions_shark:l
                 row += f"\U0001F988" + "|"
             else:
                 row += f"\U0001F30A" + "|"
-        print('----'*30)
-        print(row)
-    time.sleep(0.1) 
+            row+=""
+        world_display += row + "\n"
+        
+    print(world_display)
+    time.sleep(0.01) 
