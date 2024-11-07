@@ -50,7 +50,7 @@ Chaque espèce utilise la programmation orientée objet pour suivre des règles 
 ## Features / Fonctionnalités 
 
 ### Version Console
-- **English** : Simplified grid display with symbols for each species ('f' pour fish et 'S' pour shark).
+- **English** : Simplified grid display with symbols for each species ('\U0001F420' pour fish et 'S' pour shark).
   
 - **Français** : Affichage simplifié de la grille avec des symboles pour chaque espèce('f' pour fish et 'S' pour shark).
 
