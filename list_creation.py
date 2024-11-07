@@ -18,11 +18,10 @@ def list_creation(height:int, width:int, number_of_sharks:int, number_of_animals
     list_of_coordinates = []
     list_of_sharks = []
     list_of_fish = []
-
+    #create coordinates of the grid
     for y in range(height):
         for x in range(width):
             list_of_coordinates.append((x,y))
-
     #create random coordinates for animals
     list_of_random_coordinates = random.sample(list_of_coordinates, number_of_animals)
 

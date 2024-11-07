@@ -3,6 +3,7 @@ from class_shark import Shark
 import pygame 
 import data
 
+
 def create_shark_text(list_positions_shark:list[tuple[int,int]])->str:
     """_summary_ return in a string type the number of sharks 
 
@@ -136,8 +137,8 @@ def open_graph(res:tuple, text2:str, text4:str, screen_width:int, screen_height:
 
 
 def main_pygame(list_positions_fish:list[tuple[int,int]],list_positions_shark:list[tuple[int,int]], list_of_fish:list[object], list_of_sharks:list[object],
-                number_of_sharks:int, number_of_fish:int, screen_width:int, screen_height:int, screen, width:int, height:int, blue_grid:tuple, res:tuple, text2, text3:str, text4:str, white:tuple, LEFT:int,
-                color_light:tuple, color_dark:tuple, fps)->None:
+                number_of_sharks:int, number_of_fish:int, screen_width:int, screen_height:int, screen, width:int, height:int, 
+                blue_grid:tuple, res:tuple, text2, text3:str, text4:str, white:tuple, LEFT:int, color_light:tuple, color_dark:tuple, fps)->None:
     """_summary_ creates pygame world
 
     Args:

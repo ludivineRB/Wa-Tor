@@ -24,8 +24,7 @@ def print_world(list_positions_fish:list[tuple[int,int]], list_positions_shark:l
             else:
                 row += f"\U0001F30A" + "|"
             row+=""
-        #print('----'*30)
-        #print(row)
         world_display += row + "\n"
+        
     print(world_display)
     time.sleep(0.01) 

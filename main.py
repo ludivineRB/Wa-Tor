@@ -12,8 +12,9 @@ number_of_sharks = 25
 number_of_fish = 200
 number_of_animals = number_of_sharks + number_of_fish
 list_of_fish, list_of_sharks, list_positions_fish, list_positions_shark = list_creation.list_creation(height, width, number_of_sharks, number_of_animals)
-
+#initialize time
 chronon = 0
+#initialize the csv
 data.create_csv(chronon, number_of_fish, number_of_sharks, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 #launch simulation

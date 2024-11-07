@@ -1,6 +1,3 @@
-from Fish import Fish
-from class_shark import Shark
-import random
 import pygame 
 import functionalities
 import list_creation
@@ -52,10 +49,9 @@ width = 40
 number_of_sharks = 25
 number_of_fish = 200
 number_of_animals = number_of_sharks + number_of_fish
-
 list_of_fish, list_of_sharks, list_positions_fish, list_positions_shark = list_creation.list_creation(height, width, number_of_sharks, number_of_animals)
 
-#infinite loop to run pygame
+#Start the graphic display and the simulation
 while True:
     #events as in button clicks
     for ev in pygame.event.get(): 
@@ -63,11 +59,11 @@ while True:
             pygame.quit()     
         #check if a mouse is clicked 
         if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == LEFT: 
-            #if the mouse is clicked on the button the game is terminated 
+            #start the simulation
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2 <= mouse[1] <= screen_height/2+40:
                 functionalities.main_pygame(list_positions_fish,list_positions_shark,list_of_fish, list_of_sharks, number_of_sharks, number_of_fish, screen_width, screen_height, screen, width, height, blue_grid, res, text2, text3, text4, white, LEFT,
                 color_light, color_dark, fps)
-                
+            #quit the simulation
             if screen_width-200 <= mouse[0] <= screen_width-60 and screen_height/2+40 < mouse[1] <= screen_height/2+80:
                 pygame.quit()
 
